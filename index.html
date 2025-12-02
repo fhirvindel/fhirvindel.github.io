@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enchanted Woods Camp</title>
+  <style>
+    ::-webkit-scrollbar {
+    display: none;
+  }
+
+  body {
+     scrollbar-width: none;
+  }
+
+    /* Make sizing predictable and avoid horizontal panning on small devices */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { max-width: 100%; overscroll-behavior-x: none; touch-action: pan-y; }
+    img, picture, svg, video { max-width: 100%; height: auto; display: block; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Trebuchet MS', sans-serif;
+      /* simplified background: use a single dark color for better legibility */
+      background: #0b3d0b;
+      color: #fff;
+      position: relative;
+      overflow-x: hidden;
+    }
+    /* enable smooth scrolling for anchor links */
+    html { scroll-behavior: smooth; }
+    header {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    header h1 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 6px #000;
+    }
+    .section {
+      padding: 40px 36px; /* increased horizontal padding */
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      margin-bottom: 20px;
+    }
+    .card h2 { margin-top: 0; }
+
+    footer {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      opacity: 1;
+      /* use 100% width to avoid occasional 1px overflow on some mobile browsers */
+      width: 100%;
+      margin: 0;
+      position: relative;
+      padding: 12px 0;
+      box-sizing: border-box;
+      /* safe-area insets for notched devices */
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    footer .icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: nowrap;
+    }
+
+    footer .icons img {
+      display: inline-block;
+      width: 32px;
+      height: auto;
+    }
+
+    footer .icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 6px;
+      transition: transform 120ms ease, background 120ms ease;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    footer .icons a:hover {
+      transform: translateY(-3px);
+      background: rgba(255,255,255,0.05);
+      cursor: pointer;
+    }
+
+    /* container that holds JS-spawned fireflies; positioned relative to document
+       (not fixed) so fireflies scroll with the page */
+    #fireflies {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; /* updated by JS to match document height */
+      pointer-events: none;
+      overflow: visible;
+      z-index: 6;
+    }
+
+    /* subtle twinkle animation (opacity-only pulsing) */
+    @keyframes twinkle {
+      0% { opacity: 0.18; }
+      50% { opacity: 1; }
+      100% { opacity: 0.22; }
+    }
+
+    .firefly {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #ffffff 60%, #ffffff 100%);
+      box-shadow: 0 0 10px 4px rgba(255,210,120,0.12), 0 0 20px 6px rgba(255,180,80,0.06);
+      opacity: 0.0;
+      transform: translate(-50%, -50%);
+      transition: opacity 220ms linear, transform 300ms linear;
+      will-change: transform, opacity, left, top;
+    }
+
+    /* Header / hero full-screen */
+
+    /* Sticky inner header to create a 'stop the screen' effect while scroll-linked animations run */
+    .header-inner {
+      position: sticky;
+      top: calc(0%);
+      height: 100vh;
+      display: flex;
+      align-self: flex-start;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      z-index: 5;
+      background: linear-gradient(#0b3d0b00, #14521400); /* subtle transparent backdrop */
+    }
+
+    .hero-title { z-index: 3; }
+    /* Make the hero title larger and sticky so it remains while the coat spins */
+    .hero-title { z-index: 30; position: absolute; top: calc(50vh + 80px); display: flex; flex-direction: column; align-items: center; }
+    .hero-title h1 { font-size: 4.4rem; margin: 0 0 8px; line-height: 1; text-shadow: 3px 3px 8px rgba(0,0,0,0.6); }
+    .hero-title p { margin: 0; opacity: 0.95; font-size: 1.05rem; }
+
+    @media (max-width: 900px) {
+      .hero-title h1 { font-size: 2.6rem; }
+      .hero-title { top: calc(50vh + 60px); }
+    }
+
+    /* Typing/parallax reveal for the hero title (only in supporting browsers) */
+    /* Default: mask and caret hidden so the title is always readable */
+    .title-mask, .title-caret { display: none; }
+
+    @supports (animation-timeline: scroll()) {
+      .title-mask, .title-caret { display: block; }
+      .title-wrap { position: relative; display: inline-block; }
+      .title-mask {
+        position: absolute;
+        /* make the mask wider so it fully covers the text */
+        left: -45%; right: -14%; top: 0; bottom: 0;
+        background: #0b3d0b; /* matches body background */
+        z-index: 2;
+        transform: translateX(0%);
+        will-change: transform, opacity;
+        /* animate along the spinTrack so the reveal is tied to scrolling
+           finish earlier (60% of the track) so the heading becomes readable sooner */
+        animation-name: mask-reveal;
+        animation-timeline: --spinTrack;
+        animation-range: entry 0% exit 60%;
+        animation-duration: 1ms;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+      }
+      @keyframes mask-reveal { 0% { transform: translateX(0%); } 100% { transform: translateX(100%); } }
+
+      .title-caret {
+        position: absolute;
+        top: 0.06em;
+        left: 0;
+        width: 2px;
+        height: 1.05em;
+        background: #0b3d0b;
+        z-index: 3;
+        transform-origin: left center;
+        will-change: transform, opacity;
+        animation-name: caret-move, caret-blink;
+        animation-timeline: --spinTrack, --spinTrack;
+        /* move caret with the mask but finish sooner so text is readable earlier */
+        animation-range: entry 0% exit 60%, entry 0% exit 60%;
+        animation-duration: 1ms, 1s;
+        animation-fill-mode: both, both;
+        animation-timing-function: linear, steps(1,end);
+        animation-iteration-count: 1, infinite;
+      }
+      @keyframes caret-move { 0% { transform: translateX(0%); opacity: 1; } 100% { transform: translateX(100%); opacity: 1; } }
+      @keyframes caret-blink { 0% { opacity: 1 } 50% { opacity: 0 } 100% { opacity: 1 } }
+    }
+
+    /* Top arrow (larger black triangle) - pinned to the very top edge */
+    .top-arrow {
+      position: fixed;
+      top: 0; /* touch the top of the viewport */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 22px solid #000; /* larger triangle pointing down */
+      z-index: 1200;
+      opacity: 1;
+      transition: opacity 320ms ease, transform 320ms ease;
+      display: block;
+      pointer-events: auto;
+    }
+    /* move the arrow upward slightly when hiding so the fade feels natural */
+    .top-arrow.hidden { opacity: 0; transform: translateX(-50%) translateY(-12px); pointer-events: none; }
+    @media (max-width: 560px) {
+      .top-arrow { top: 0; border-left:12px solid transparent; border-right:12px solid transparent; border-top:16px solid #000; }
+    }
+
+    /* hide scrollbars visually while keeping scrolling active when the header/title is active
+       The JS toggles `hide-scroll` on body while the header is still covering the viewport. */
+    body.hide-scroll {
+      -ms-overflow-style: none; /* IE 10+ */
+      scrollbar-width: none; /* Firefox */
+      /* keep page scrollable but prefer reserving scrollbar space so layout doesn't shift */
+      overflow-y: scroll;
+    }
+    /* For Chrome/WebKit: make the scrollbar zero-width so it's not visible */
+    body.hide-scroll::-webkit-scrollbar { width: 0; height: 0; background: transparent; }
+
+    /* coat of arms — simple emblem as SVG container */
+    .coat {
+      width: 160px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .coat svg { width: 100%; height: 100%; display: block; }
+
+    .coat {
+      /* use the custom property for rotation; the animation below drives it via the spin-track */
+      position: absolute;
+      /* keep the coat visually above the hero title */
+      top: 18vh;
+      margin: 0 auto;
+      transform-origin: center center;
+      z-index: 40;
+      animation-name: coat-rotate;      
+      animation-timeline: --spinTrack;
+      /* animate across the dedicated spin-track so the coat rotates while 400vh is scrolled */
+
+      will-change: transform, opacity;
+      animation-range: entry 0% exit 100%;
+    }
+
+    @keyframes coat-rotate {
+      /* faster spin: reach 720deg very early (10%) so the coat appears to spin quickly */
+      30%   {transform: rotate(0deg); }
+      80% {transform: rotate(1440deg) ; }
+      100% {transform: rotate(1440deg) ; }
+    }
+
+    /* Parallax the main section up while the coat animates */
+    /* Section parallax: small move while header is pinned, then normal flow */
+
+    /* top navigation that appears after scrolling past header */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 18px; /* a touch larger before it shows so the shrink is noticeable */
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(6px);
+      transform: translateY(-120%);
+      opacity: 0;
+      z-index: 50;
+      will-change: transform, opacity;
+      transition: transform 320ms ease, opacity 320ms ease, padding 300ms ease, backdrop-filter 300ms ease;
+      /* scroll-linked appearance: handled in @supports for browsers that support view-timeline */
+    }
+
+    /* When the nav becomes visible, shrink its vertical padding so it feels compact */
+    .site-nav.visible { transform: translateY(0); opacity: 1; padding: 6px 10px; pointer-events: auto; }
+    .site-nav a { color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 8px; transition: padding 240ms ease, font-size 240ms ease; display: inline-block; }
+    .site-nav.visible a { padding: 6px 8px; font-size: 0.95rem; }
+    .site-nav a:hover { background: rgba(255,255,255,0.06); }
+
+    /* side navigation: vertical line with dot links */
+    .side-nav {
+      position: fixed;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%) translateX(-120%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+      opacity: 0;
+      z-index: 55;
+      pointer-events: auto;
+      will-change: transform, opacity;
+      /* scroll-linked appearance tied to the About section timeline (applied in @supports) */
+    }
+
+    .side-nav.visible { transform: translateY(-50%) translateX(0); opacity: 1; }
+
+    /* ensure visibility toggles from JS/CSS take precedence over any scroll-linked animation */
+    .site-nav.visible { transform: translateY(0) !important; opacity: 1 !important; }
+    .side-nav.visible { transform: translateY(-50%) translateX(0) !important; opacity: 1 !important; }
+
+    .side-nav .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      display: block;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+    }
+
+    .side-nav a { text-decoration: none; display:flex; align-items:center; gap:8px; }
+    .side-nav a span { display:none; }
+
+    /* Crew grid styles */
+    .crew-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px; /* tightened vertical spacing between panels */
+      margin-top: 12px;
+      align-items: start;
+      align-content: center;
+    }
+
+    /* Nav appear keyframes (CSS-only, scroll-linked) */
+    @keyframes nav-appear-top {
+      0%   { transform: translateY(-120%); opacity: 0; }
+      20%  { transform: translateY(-120%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes nav-appear-side {
+      0%   { transform: translateY(-50%) translateX(-120%); opacity: 0; }
+      20%  { transform: translateY(-50%) translateX(-120%); opacity: 0; }
+      100% { transform: translateY(-50%) translateX(0); opacity: 1; }
+    }
+
+    /* Only apply scroll-linked animations in browsers that support scroll-linked timelines */
+    @supports (animation-timeline: scroll()) {
+      .site-nav {
+        animation-name: nav-appear-top;
+        animation-timeline: --aboutTrack;
+        animation-range: entry 0% exit 100%;
+        animation-duration: 1ms;
+        animation-fill-mode: both;
+      }
+      .side-nav {
+        animation-name: nav-appear-side;
+        animation-timeline: --aboutTrack;
+        animation-range: entry 0% exit 100%;
+        animation-duration: 1ms;
+        animation-fill-mode: both;
+      }
+    }
+
+    /* CSS-only fallback for browsers that do NOT support scroll-linked timelines
+       Ensure crew cards are visible (not translated off-screen) and have a gentle
+       transition so they still feel animated. This does not affect browsers that
+       support scroll-linked animations. */
+    @supports not (animation-timeline: scroll()) {
+      .crew-panel .crew-card,
+      .crew-panel .crew-card-odd,
+      .crew-panel .crew-card.right {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+      /* make the mask/caret hidden in unsupported browsers so title is readable */
+      .title-mask, .title-caret { display: none !important; }
+    }
+
+    /* spin-track: dedicated vertical scroll region controlling the coat spin (400vh) */
+.spin-track {
+  height: 400vh;
+  width: 100%;
+  /* expose a named view timeline for the spin region (standard property) */
+  view-timeline: --spinTrack;
+  view-timeline-axis: block;
+}
+
+    #about {
+      view-timeline: --aboutTrack;
+      view-timeline-axis: block;
+    }
+
+    /* Panels around each crew member: tall blocks so each card can stick/float while scrolling */
+    .crew-panel {
+      width: 100%;
+      position: relative;
+      display: block;
+      box-sizing: border-box;
+      padding-top: 4vh; /* reduced top breathing room so panels sit closer vertically */
+      /* expose the panel itself as a timeline for the contained card */
+    }
+    .crew-panel .crew-card {
+      /* normal flow card — will animate in via scroll-timeline */
+      position: relative;
+      margin: 10px auto; /* smaller vertical margin inside panel */
+      width: min(1000px, 92%);
+      background: rgba(255,255,255,0.03);
+      padding: 24px; /* increased inner padding */
+      border-radius: 12px;
+      color: inherit;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.30);
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      grid-template-areas: "image info";
+      gap: 26px; /* slightly larger gap to separate image/text */
+      align-items: stretch;
+      min-height: 160px;
+      transform: translateX(-120%) ;
+      opacity: 0;
+      will-change: transform, opacity;
+      z-index: 1;
+      /* animate using the element's own scroll timeline so it floats in as it appears */
+      animation-name: crew-float;
+      animation-timeline: view();
+      animation-range: entry 20% exit 100%;
+      animation-duration: 1ms;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+    }
+
+    .crew-panel .crew-card-odd {
+    transform: translateX(220%) ;
+    animation-name: crew-float2;
+    animation-timeline: view();
+    animation-range: entry 20% exit 100%;
+    animation-duration: 1ms;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+}
+
+    /* Right-aligned variant: swap grid areas so image appears on the right */
+    .crew-panel .crew-card.right {
+      grid-template-columns: 1fr 160px;
+      grid-template-areas: "info image";
+      text-align: left;
+    }
+
+    .crew-card img {
+      grid-area: image;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      justify-self: center;
+      align-self: center;
+      flex-shrink: 0;
+    }
+
+    /* Make the info area vertically centered and clamp paragraph lines so all cards match height */
+    .crew-info {
+      grid-area: info;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 12px 10px; /* increased internal margin */
+      min-width: 0; /* allow text truncation via clamp instead of forcing overflow */
+    }
+
+    .crew-info p {
+      margin: 0;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.98);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    @keyframes crew-float {
+      0% { transform: translateX(-220%);  opacity: 0; }
+      40% { transform: translateX(0%); opacity: 1; }
+      60% { transform: translateX(0%); opacity: 1; }
+    }
+    @keyframes crew-float2 {
+      0% { transform: translateX(220%);  opacity: 0; }
+      40% { transform: translateX(0%); opacity: 1; }
+      60% { transform: translateX(0%); opacity: 1; }
+    }
+
+    /* Firefox / non-scroll-timeline fallback: use .in class to trigger sliding in */
+    .crew-panel .crew-card {
+      transition: transform 520ms cubic-bezier(.2,.9,.2,1), opacity 520ms ease;
+    }
+    .crew-panel .crew-card.in {
+      transform: translateX(0) scale(1) !important;
+      opacity: 1 !important;
+    }
+    .crew-panel .crew-card.right.in { transform: translateX(0) scale(1) !important; }
+
+    /* No fixed delays — each card animates when it enters view (scroll-linked) */
+
+    .crew-card h3 { margin: 0 0 6px; font-size: 1rem; }
+    .crew-card p { margin: 0; font-size: 0.9rem; color: rgba(255,255,255,0.92); line-height: 1.35; }
+
+    /* alternate layout: image on right */
+    .crew-card.right {
+      grid-template-columns: 1fr 160px;
+      text-align: left;
+    }
+
+    /* responsive: stack on narrow screens */
+    @media (max-width: 560px) {
+      .crew-card, .crew-card.right { grid-template-columns: 1fr; }
+      .crew-card img, .crew-card.right img { width: 100%; height: 220px; }
+      .crew-card { padding: 16px; }
+      .crew-info { padding: 10px 8px; }
+      .crew-info p { font-size: 1rem; line-height: 1.45; }
+    }
+
+    /* hide side navigation on small screens (phones) */
+    @media (max-width: 760px) {
+      .side-nav {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    }
+
+    /* Large screen: two-column list and larger portraits */
+    @media (min-width: 900px) {
+      .crew-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .crew-card { grid-template-columns: 200px 1fr; min-height: 240px; }
+      .crew-card.right { grid-template-columns: 1fr 200px; }
+      .crew-card img, .crew-card.right img { width: 200px; height: 200px; }
+      .crew-info p { -webkit-line-clamp: 5;line-clamp: 5; font-size: 1.02rem; }
+      .crew-card h3 { font-size: 1.12rem; }
+    }
+
+    /* Landscape / small-height adjustments to avoid cramped layout and any overflow */
+    @media (orientation: landscape) {
+      .hero-title h1 { font-size: 2.2rem; }
+      .hero-title { top: calc(45vh + 24px); }
+      .coat { width: 120px; height: 150px; }
+      .header-inner { padding: 18px 12px; }
+      footer { width: 100%; margin: 0; padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+    }
+
+    /* Respect device safe areas (notches) */
+    html { padding-top: env(safe-area-inset-top); }
+    /* keep body edges clean so we can control safe-area padding inside the centered wrapper */
+    body { padding-left: 0; padding-right: 0; }
+
+    /* Ensure hero title is always horizontally centered */
+    .hero-title { left: 50%; transform: translateX(-50%); max-width: min(92%, 1000px); padding-left: 12px; padding-right: 12px; }
+
+    /* Site wrapper: keep content centered and avoid body-level horizontal padding that can shift layout
+       Use max-width so large desktop windows can expand slightly without breaking small screens */
+    .site-wrap { width: 100%; max-width: 1100px; margin: 0 auto; padding-left: max(env(safe-area-inset-left), 12px); padding-right: max(env(safe-area-inset-right), 12px); box-sizing: border-box; }
+    @media (min-width: 1200px) {
+      .site-wrap { max-width: 1200px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<nav id="site-nav" class="site-nav" aria-label="Main navigation">
+  <a href="#about">About</a>
+  <a href="#activities">Activities</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#crew">Our Crew</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="site-wrap">
+<div id="fireflies"></div>
+
+<!-- top arrow: small black triangle that links to #about -->
+<a id="top-arrow" href="#about" class="top-arrow" aria-label="Scroll to About" role="button"></a>
+
+  <div class="spin-track">
+    <div class="header-inner">
+      <div class="coat" id="coat" aria-hidden="true">
+    <!-- simple stylized shield SVG (original, lightweight) -->
+    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Coat of arms">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0" stop-color="#ffd36b" />
+          <stop offset="1" stop-color="#ff9a3c" />
+        </linearGradient>
+      </defs>
+      <g fill="none" fill-rule="evenodd">
+        <path d="M100 8c32 0 56 18 56 18v86c0 56-56 92-56 92s-56-36-56-92V26s24-18 56-18z" fill="#222" opacity="0.12"/>
+        <path d="M100 12c30 0 52 17 52 17v82c0 52-52 86-52 86s-52-34-52-86V29s22-17 52-17z" fill="url(#g1)" stroke="#3a2b1b" stroke-width="4"/>
+        <circle cx="100" cy="86" r="24" fill="#fff" opacity="0.14" />
+        <path d="M84 78c6-6 26-6 32 0v34c0 6-8 12-16 12s-16-6-16-12V78z" fill="#3a2b1b" opacity="0.12" />
+      </g>
+    </svg>
+    </div>
+    <div class="hero-title">
+    <div class="title-wrap">
+      <h1>Enchanted Woods Camp</h1>
+      <span class="title-mask" aria-hidden="true"></span>
+      <span class="title-caret" aria-hidden="true"></span>
+    </div>
+    <p>Welcome — explore nature, crafts, and stories with our team.</p>
+  </div>
+    <!-- hint removed as requested -->
+    </div>
+  </div>
+
+<!-- site nav previously placed here is moved to top of document to avoid transform/containment issues -->
+
+<!-- side-nav: vertical dot menu that auto-scrolls to the section headers -->
+<nav id="side-nav" class="side-nav" aria-hidden="false" aria-label="Section quick links">
+  <a href="#about" title="About"><span class="dot" aria-hidden="true"></span><span>About</span></a>
+  <a href="#activities" title="Activities"><span class="dot" aria-hidden="true"></span><span>Activities</span></a>
+  <a href="#gallery" title="Gallery"><span class="dot" aria-hidden="true"></span><span>Gallery</span></a>
+  <a href="#crew" title="Our Crew"><span class="dot" aria-hidden="true"></span><span>Crew</span></a>
+  <a href="#contact" title="Contact"><span class="dot" aria-hidden="true"></span><span>Contact</span></a>
+</nav>
+
+<div class="section">
+  <div class="card" id="about">
+    <h2>About the Camp</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+  </div>
+  <div class="card" id="activities">
+    <h2>Activities</h2>
+    <ul>
+      <li>Lorem ipsum dolor sit amet</li>
+      <li>Consectetur adipiscing elit</li>
+      <li>Sed do eiusmod tempor</li>
+      <li>Incididunt ut labore</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Sign Up</h2>
+    <p>Lorem ipsum dolor sit amet...</p>
+  </div>
+  <div class="card" id="gallery">
+    <h2>Gallery</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae velit ex.</p>
+  </div>
+  <div class="card" id="crew">
+    <h2>Our Crew</h2>
+    <p>Meet the team that makes Enchanted Woods Camp special.</p>
+    <div class="crew-grid">
+      <div class="crew-panel" data-index="1">
+        <div class="crew-card">
+          <img src="https://picsum.photos/seed/p1/400/300" alt="Person 1">
+          <div class="crew-info">
+            <h3>Person 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae justo at lacus feugiat convallis. Integer sit amet urna eu lorem posuere rhoncus. Curabitur non mi sed neque faucibus tristique.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="2">
+        <div class="crew-card right crew-card-odd">
+          <img src="https://picsum.photos/seed/p2/400/300" alt="Person 2">
+          <div class="crew-info">
+            <h3>Person 2</h3>
+            <p>Dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor. Vivamus lacinia augue in urna cursus, eu tincidunt velit bibendum. Suspendisse potenti and vestibulum ante ipsum. Maecenas euismod, augue non facilisis tincidunt, justo nisl volutpat orci.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="3">
+        <div class="crew-card">
+          <img src="https://picsum.photos/seed/p3/400/300" alt="Person 3">
+          <div class="crew-info">
+            <h3>Person 3</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam accumsan, urna in faucibus consequat, justo risus suscipit lacus, in gravida nisl erat ut lectus. Sed sit amet nibh vitae arcu sodales placerat. Proin id libero sit amet urna hendrerit tincidunt.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="4">
+        <div class="crew-card right crew-card-odd">
+          <img src="https://picsum.photos/seed/p4/400/300" alt="Person 4">
+          <div class="crew-info">
+            <h3>Person 4</h3>
+            <p>Curabitur ac lorem at sapien posuere tincidunt. Integer pharetra, nibh a luctus cursus, ipsum sapien luctus nisl, ut fermentum neque augue vitae arcu. Praesent a velit id arcu facilisis luctus. Sed vitae lorem sit amet orci varius vulputate.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="5">
+        <div class="crew-card">
+          <img src="https://picsum.photos/seed/p5/400/300" alt="Person 5">
+          <div class="crew-info">
+            <h3>Person 5</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae nibh in nunc gravida efficitur. Aenean ut turpis quis erat efficitur feugiat. Integer convallis sem ut massa mattis, a posuere risus ultricies.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="6">
+        <div class="crew-card right crew-card-odd">
+          <img src="https://picsum.photos/seed/p6/400/300" alt="Person 6">
+          <div class="crew-info">
+            <h3>Person 6</h3>
+            <p>Etiam sit amet lorem sed arcu luctus vulputate. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec a nibh at elit commodo porta. Nulla facilisi and curabitur tincidunt sapien quis.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="7">
+        <div class="crew-card">
+          <img src="https://picsum.photos/seed/p7/400/300" alt="Person 7">
+          <div class="crew-info">
+            <h3>Person 7</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique, sapien at mattis luctus, nisl ipsum faucibus nibh, sed aliquet eros lorem eget dolor. Vivamus eget urna eget odio tempor placerat. Integer at urna sed sapien sodales tristique.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="8">
+        <div class="crew-card right crew-card-odd">
+          <img src="https://picsum.photos/seed/p8/400/300" alt="Person 8">
+          <div class="crew-info">
+            <h3>Person 8</h3>
+            <p>Praesent sit amet lorem id nibh efficitur posuere. Fusce non magna vel libero efficitur luctus. Nam at felis a metus aliquet luctus. Quisque vitae turpis a nisl fringilla commodo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="9">
+        <div class="crew-card">
+          <img src="https://picsum.photos/seed/p9/400/300" alt="Person 9">
+          <div class="crew-info">
+            <h3>Person 9</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat, urna ac lobortis congue, neque sem rhoncus augue, ac cursus libero erat et nisl. Suspendisse in nisl quis arcu fermentum sodales. Curabitur a lectus non urna faucibus vulputate.</p>
+          </div>
+        </div>
+      </div>
+      <div class="crew-panel" data-index="10">
+        <div class="crew-card right crew-card-odd">
+          <img src="https://picsum.photos/seed/p10/400/300" alt="Person 10">
+          <div class="crew-info">
+            <h3>Person 10</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat, sapien vitae feugiat tincidunt, lorem orci pharetra nibh, vitae mattis urna est vel orci. Proin vitae tortor sed ligula consequat interdum. Mauris a nibh vitae justo faucibus fringilla.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Location</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+  </div>
+  <div class="card">
+    <h2>Schedule</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus ante dapibus diam.</p>
+  </div>
+  <div class="card">
+    <h2>Food</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Nulla quis sem at nibh elementum.</p>
+  </div>
+  <div class="card">
+    <h2>Safety</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis ipsum. Praesent mauris.</p>
+  </div>
+  <div class="card">
+    <h2>Volunteers</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec tellus sed augue semper porta.</p>
+  </div>
+  <div class="card">
+    <h2>FAQs</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris massa. Vestibulum lacinia arcu eget nulla.</p>
+  </div>
+  <div class="card">
+    <h2>Testimonials</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent.</p>
+  </div>
+  <div class="card">
+    <h2>Pricing</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ligula in libero.</p>
+  </div>
+  <div class="card" id="contact">
+    <h2>Contact</h2>
+    <div data-customgform="cmikgtbh10003wnc04z53c26w"></div>
+    <script async src="https://cdn.customgform.com/cgf.js"></script>
+  </div>
+  <div class="card">
+    <h2>More Info</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tortor. Pellentesque nibh.</p>
+  </div>
+</div>
+
+</div> <!-- /.site-wrap -->
+
+<footer>
+  <div class="icons">
+    <a href="tel:000-000-0000" aria-label="Call Enchanted Woods Camp">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/phone.png" alt="Phone" />
+    </a>
+    <a href="mailto:enchantedwoods@example.com" aria-label="Email Enchanted Woods Camp">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/new-post.png" alt="Email" />
+    </a>
+    <a href="https://facebook.com/EnchantedWoodsCamp" target="_blank" rel="noopener noreferrer" aria-label="Open Facebook page">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/facebook.png" alt="Facebook" />
+    </a>
+  </div>
+</footer>
+
+</div>
+<!-- Fallback: ensure navs become visible when About section arrives (IntersectionObserver) -->
+<script>
+  (function(){
+    const about = document.getElementById('about');
+    const siteNav = document.getElementById('site-nav');
+    const sideNav = document.getElementById('side-nav');
+    const headerInner = document.querySelector('.header-inner');
+    if (!about || !siteNav || !sideNav) return;
+
+    // track two conditions: about visible or header scrolled past
+    let aboutVisible = false;
+    let headerPassed = false;
+
+    // Helper to show/hide navs by adding/removing .visible
+    function updateVisibility(){
+      const show = aboutVisible || headerPassed;
+      if (show) {
+        siteNav.classList.add('visible');
+        sideNav.classList.add('visible');
+      } else {
+        siteNav.classList.remove('visible');
+        sideNav.classList.remove('visible');
+      }
+      // Hide the visual scrollbar while the header is still covering the viewport
+      // (keep scrolling functional, only hide the scrollbar UI). HeaderPassed
+      // will be true after the header scrolls away.
+      try {
+        document.body.classList.toggle('hide-scroll', !headerPassed);
+        // hide the top arrow when the navs become visible (so it fades as navs come in)
+        const topArrow = document.getElementById('top-arrow');
+        if (topArrow) topArrow.classList.toggle('hidden', show);
+      } catch (e) {
+        // If for some reason body isn't available, ignore.
+      }
+    }
+
+    // Monitor About with IntersectionObserver when available
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          aboutVisible = !!(entry.isIntersecting && entry.intersectionRatio > 0.08);
+          updateVisibility();
+        });
+      }, { threshold: [0.08], rootMargin: '0px 0px -10% 0px' });
+      io.observe(about);
+    } else {
+      // Fallback for very old browsers: basic check based on element rect
+      function checkAbout(){
+        const r = about.getBoundingClientRect();
+        aboutVisible = r.top <= window.innerHeight * 0.82;
+        updateVisibility();
+      }
+      window.addEventListener('scroll', checkAbout, { passive: true });
+      window.addEventListener('resize', checkAbout);
+      checkAbout();
+    }
+
+    // Monitor header position: when headerInner bottom is above viewport top, consider passed
+    function checkHeader(){
+      if (!headerInner) return;
+      const rect = headerInner.getBoundingClientRect();
+      headerPassed = rect.bottom <= 0;
+      updateVisibility();
+    }
+    window.addEventListener('scroll', checkHeader, { passive: true });
+    window.addEventListener('resize', checkHeader);
+    // run once
+    checkHeader();
+  })();
+</script>
+</body>
+</html>
