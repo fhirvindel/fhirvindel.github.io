@@ -1,0 +1,944 @@
+/* Intro text before 2x2 senior grid */
+.lead-seniors {
+  font-weight: 600;
+  color: #5C3D2E;
+  margin-bottom: 0.6rem;
+}
+.lead-seniors + .people-grid.two-cols {
+  height: auto; /* allow grid to size naturally when intro present */
+}
+/* Rólunk page: two-column top (text left, image right), full-width bottom */
+.page-content .rolunk-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-bottom: 1rem;
+}
+.page-content .rolunk-left { width: 60%; vertical-align: top; padding-right: 1rem; }
+.page-content .rolunk-right { width: 40%; vertical-align: top; }
+.page-content .rolunk-right .rolunk-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+.page-content .rolunk-bottom p { margin-top: 0.6rem; }
+
+/* Phone: keep two columns, adjust widths for readability */
+@media (max-width: 768px) {
+  .page-content .rolunk-table { width: 100%; table-layout: fixed; }
+  .page-content .rolunk-left { width: 56%; padding-right: 0.8rem; vertical-align: top; }
+  .page-content .rolunk-right { width: 44%; vertical-align: top; }
+  .page-content .rolunk-right .rolunk-img { width: 100%; height: auto; }
+}
+/* Cover page enhancements: arched title + cover photo */
+.cover-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* move content to the top */
+  gap: 1rem;
+  justify-content: center;
+}
+
+.arched-title {
+  display: inline-block;
+  color: #B37235; /* title text color via currentColor in SVG */
+}
+
+.arched-title {
+  width: 100%;
+}
+.arched-title svg {
+  width: 100%;
+  max-width: none;
+  height: auto;
+}
+
+.arched-title text {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.cover-photo {
+  width: min(90%, 600px);
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Slightly tighter layout on phones */
+body.phone .arched-title svg {
+  width: 100%;
+}
+body.phone .cover-photo {
+  width: min(92%, 520px);
+}
+
+/* Full-page background for the front cover (desktop/tablet) */
+.sheet.cover .page.front {
+  background-color: #F6E1CC;
+}
+
+/* Full-page background for the front cover (phone) */
+.sheet.cover .page.phone-page {
+  background-color: #F6E1CC;
+}
+/* Base */
+:root {
+  --book-bg: #f9f6f1;
+  --page-bg: #fffdfa;
+  --ink: #222;
+  --accent: #9c6b3f;
+  --shadow: rgba(0,0,0,0.15);
+  --cover: #3b2e2a;
+  --cover-ink: #f0e6d6;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; overscroll-behavior: none; touch-action: none; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #eee8dd, #f7f3ea);
+}
+
+.site-header, .site-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 0.75rem 1rem; flex-wrap: wrap;
+}
+.site-title {
+  font-family: "Libre Baskerville", Georgia, serif; margin: 0; font-size: 1.25rem;
+}
+.bookmarks { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.bookmark {
+  padding: 0.4rem 0.6rem; border: 1px solid #d7c9b3; border-radius: 6px; background: #fff;
+  cursor: pointer; font-size: 0.9rem;
+}
+.bookmark:hover { background: #f5efe5; }
+
+.flipbook-wrapper { display: grid; grid-template-columns: 100%; align-items: center; justify-items: center; min-height: 100vh; padding: 0; }
+.controls { display: flex; justify-content: center; gap: 1rem; margin-bottom: 0.5rem; }
+.controls .prev, .controls .next {
+  padding: 0.5rem 0.8rem; border: none; border-radius: 6px; background: var(--accent); color: white; cursor: pointer;
+}
+.controls .prev:hover, .controls .next:hover { filter: brightness(1.1); }
+
+/* Responsive menus */
+.responsive-nav { display: none; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.5rem; }
+.responsive-nav { position: relative; z-index: 1000001; }
+.top-bookmarks { display: none; gap: 0.5rem; flex-wrap: wrap; }
+.top-bookmarks { position: relative; z-index: 1000001; }
+.top-bookmarks .bookmark { padding: 0.7rem 1.1rem; font-size: 1.05rem; border: 1px solid #d7c9b3; border-radius: 8px; background: #fff; }
+.menu-toggle { display: none; padding: 0.6rem 1rem; font-size: 1.05rem; border-radius: 8px; border: 1px solid #cbb69b; background: var(--accent); color: #fff; }
+.menu-toggle { position: relative; overflow: hidden; }
+.menu-toggle.hamburger { width: 44px; height: 36px; color: transparent; }
+.menu-toggle.hamburger::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 24px; height: 2px; background: #fff;
+  transform: translate(-50%, -12px); box-shadow: 0 8px 0 #fff, 0 16px 0 #fff;
+}
+.menu-toggle.hamburger::after { content: ""; position: absolute; left: 50%; top: 50%; width: 24px; height: 2px; background: #fff; display: none; }
+.menu-toggle.hamburger[aria-expanded="true"]::before { transform: translate(-50%, -50%) rotate(45deg); box-shadow: none; }
+.menu-toggle.hamburger[aria-expanded="true"]::after { display: block; transform: translate(-50%, -50%) rotate(-45deg); }
+.mobile-menu { position: fixed; left: 0; right: 0; top: 0; padding: 0.9rem; background: rgba(255,255,255,0.96); box-shadow: 0 10px 20px rgba(0,0,0,0.25); z-index: 1000002; }
+.mobile-menu { bottom: 0; height: 100vh; overflow-y: auto; }
+.mobile-bookmarks { display: grid; grid-template-columns: 1fr; gap: 0.6rem; }
+.mobile-bookmarks .bookmark { padding: 0.7rem 1rem; font-size: 1.05rem; border: 1px solid #d7c9b3; border-radius: 8px; background: #fff; }
+
+/* Prevent background scroll when mobile menu is open */
+body.menu-open { overflow: hidden; }
+
+/* Flipbook */
+.flipbook {
+  width: 80vw;
+  height: min(80vh, 900px);
+  background: var(--book-bg);
+  box-shadow: 0 18px 40px var(--shadow);
+  border-radius: 12px;
+  position: relative;
+  z-index: 9999;
+  perspective: 2000px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+/* center spine removed */
+
+.sheet {
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  transform-origin: left center; transition: transform 800ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform;
+}
+.sheet.flipped { transform: translateX(50%) rotateY(-180deg); }
+.sheet.flipping { z-index: 100000; }
+.sheet.flipping .page.front,
+.sheet.flipping .page.back {
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,0.25));
+}
+.sheet.flipped .page.front {
+  /* Prevent flipped front pages from intercepting clicks over back-page tabs */
+  pointer-events: none;
+}
+.sheet .page {
+  position: absolute; top: 0; bottom: 0; width: 50%; padding: 2rem 1.2rem; border-radius: 0; background: var(--page-bg);
+  backface-visibility: hidden;
+}
+.sheet .page.front { left: 50%; padding-right: 1rem; padding-left: 2rem; }
+.sheet .page.back { left: 0; transform: rotateY(180deg); padding-left: 1rem; padding-right: 2rem; }
+.sheet .page h2 { font-family: "Libre Baskerville", Georgia, serif; margin: 0 0 0.75rem; font-size: 1.2rem; }
+.sheet .page p { line-height: 1.6; }
+
+/* Front cover */
+.sheet.cover .page.front { background: var(--cover); color: var(--cover-ink); display: grid; place-items: center; text-align: center; }
+.sheet.back-cover .page.back { background: var(--cover); color: var(--cover-ink); display: grid; place-items: center; text-align: center; }
+.sheet.cover .page.front h1 { font-family: "Libre Baskerville", Georgia, serif; font-size: 2rem; margin: 0; }
+.sheet.cover .page.front .byline { opacity: 0.85; margin-top: 0.5rem; }
+
+/* Back side content */
+.page.back { transform: rotateY(180deg); }
+
+/* Full-bleed back cover image and caption (desktop + phone) */
+.sheet.back-cover .page.back,
+.sheet.back-cover .page.phone-page {
+  padding: 0; /* remove default page padding for full image */
+}
+.sheet.back-cover .page .cover-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;       /* center the figure */
+  place-items: center;
+  overflow: hidden;    /* ensure children cannot exceed page bounds */
+}
+.sheet.back-cover .page .back-figure {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  border-radius: 16px;      /* rounded picture edges */
+  overflow: hidden;         /* clip image + caption to rounded shape */
+  margin: 0 auto;           /* horizontally center within page */
+}
+.sheet.back-cover .page .back-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* crop additional parts */
+  display: block;
+  border-radius: inherit;   /* follow figure rounding */
+}
+
+/* Circular black glow (radial vignette) over the image */
+.sheet.back-cover .page .back-figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%);
+}
+.sheet.back-cover .page .back-caption {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;               /* bottom of the picture */
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  padding: 0.8rem 1rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0));
+}
+
+/* Outer edge subtle shadow only (no center gap) */
+.page.front::after {
+  content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 10px;
+  box-shadow: inset -8px 0 12px rgba(0,0,0,0.06);
+  pointer-events: none;
+}
+.page.back::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 10px;
+  box-shadow: inset 8px 0 12px rgba(0,0,0,0.06);
+  pointer-events: none;
+}
+
+/* Page corners for clicking */
+.corner {
+  position: absolute; width: 60px; height: 60px; cursor: pointer;
+}
+.corner.left { left: 0; bottom: 0; }
+.corner.right { right: 0; bottom: 0; }
+/* Prevent flipped sheet corners from intercepting clicks over tabs */
+.sheet.flipped .corner { pointer-events: none; }
+
+/* Page number */
+/* Sidebar bookmarks (10% columns on both sides) */
+.sidebar-bookmarks-left, .sidebar-bookmarks-right { align-self: start; padding: 0.75rem; display: none; }
+.side-bookmarks-left, .side-bookmarks-right { display: flex; flex-direction: column; gap: 0.6rem; }
+.side-bookmarks-left, .side-bookmarks-right {
+  position: relative; /* enable z-index stacking above sheets */
+  z-index: 3000;
+  pointer-events: auto;
+}
+.side-bookmarks-left .bookmark, .side-bookmarks-right .bookmark {
+  padding: 0.8rem 1rem; font-size: 1.05rem; border: 1px solid #d7c9b3; border-radius: 10px; background: #fff; cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+.side-bookmarks-left .bookmark:hover, .side-bookmarks-right .bookmark:hover { background: #f5efe5; }
+.page-number {
+  position: absolute; bottom: 0.8rem; font-size: 0.95rem; opacity: 0.7;
+}
+.page.front .page-number { right: 0.8rem; }
+.page.back .page-number { left: 0.8rem; }
+
+/* Tabs attached to pages (protruding, messy) */
+.page .bookmark {
+  position: absolute; top: var(--tab-top, 50%);
+  transform: translateY(-50%) rotate(var(--tab-rot, 0deg));
+  padding: 0.8rem 1.3rem 0.8rem 1.5rem;
+  border: 1px solid #d7c9b3; background: #fff; color: var(--ink);
+  font-size: 1.15rem; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; z-index: 8;
+  box-shadow: 5px 9px 18px rgba(0,0,0,0.26);
+  min-height: 44px; line-height: 1.2;
+}
+.page.front .bookmark { right: -84px; border-left: none; border-radius: 0 12px 12px 0; }
+.page.back .bookmark { left: -84px; border-right: none; border-radius: 12px 0 0 12px; }
+.page .bookmark::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 16px; background: var(--accent);
+  border-radius: 0 12px 12px 0; opacity: 0.98;
+}
+.page.back .bookmark::before { left: auto; right: 0; border-radius: 12px 0 0 12px; }
+
+/* mirrored tabs (visible on right side for even pages) */
+.page.front .bookmark.mirror {
+  right: -84px; opacity: 0.96;
+}
+.page.front .bookmark.mirror::before {
+  width: 12px;
+}
+
+/* mirror-back tabs (visible on left side of back pages when flipped backwards) */
+.page.back .bookmark.mirror-back {
+  left: -84px; opacity: 0.96; border-right: none; border-radius: 12px 0 0 12px;
+}
+.page.back .bookmark.mirror-back::before {
+  width: 12px; left: auto; right: 0; border-radius: 12px 0 0 12px;
+}
+
+/* removed external book-tabs */
+
+/* Smaller devices: single-page feel (phone) */
+@media (max-width: 768px) {
+  .flipbook { width: 96vw; height: calc(96vw * 0.75); max-height: 92vh; }
+  .sheet .page { width: 100%; left: 0; padding: 1.6rem 1.25rem; }
+  .sheet .page.front { border-left: none; }
+  .sheet .page.back { border-right: none; }
+  .controls .prev, .controls .next { padding: 0.45rem 0.65rem; }
+  .page .bookmark { font-size: 1.05rem; }
+  .page.front .bookmark { right: -51px; }
+  .page.back .bookmark { left: -51px; }
+  .page.front .bookmark.mirror { right: -51px; }
+  .flipbook-wrapper { grid-template-columns: 100%; }
+  .sidebar-bookmarks-left, .sidebar-bookmarks-right { display: none; }
+}
+
+/* Medium screens: show top bookmarks, hide tabs on pages */
+@media (max-width: 1024px) {
+  .responsive-nav { display: flex; }
+  .top-bookmarks { display: flex; }
+  .page .bookmark { display: none; }
+  .flipbook-wrapper { grid-template-columns: 100%; }
+  .sidebar-bookmarks-left, .sidebar-bookmarks-right { display: none; }
+  .flipbook { width: 100%; }
+}
+
+/* Small screens: centered controls with hamburger between Prev/Next; phone fallback */
+@media (max-width: 768px) {
+  /* Note: This breakpoint redirects to indexphone.html at 768px, fallback only */
+  .flipbook { width: 100%; height: 100%; }
+  .sidebar-bookmarks-left, .sidebar-bookmarks-right { display: none !important; }
+  
+  /* Allow scrolling on phone pages when content exceeds viewport height */
+  .phone-page {
+    overflow-x: hidden;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Make page content fill available space */
+  .phone-page .page-content {
+    flex: 1;
+  }
+  
+  /* Enable scrollbar styling for better UX */
+  .phone-page::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .phone-page::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .phone-page::-webkit-scrollbar-thumb {
+    background: #B37235;
+    border-radius: 4px;
+  }
+  
+  .phone-page::-webkit-scrollbar-thumb:hover {
+    background: #8B5A2B;
+  }
+}
+
+/* Rólunk page corner image: float right with tilt and wrapping */
+.page-content.rolunk-page { position: relative; padding-right: 0; }
+.page-content .rolunk-corner-img {
+  float: right;
+  width: clamp(154px, 51%, 286px);
+  height: auto;
+  margin: 0 0 0.9rem 1.1rem; /* space between text and image */
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  /* help text wrap cleanly around the tilted visual footprint */
+  shape-outside: polygon(6% 8%, 94% 0%, 94% 92%, 6% 100%);
+  shape-margin: 20px;
+}
+/* Only the first paragraph should sit alongside the image; subsequent ones go full-width below */
+.page-content.rolunk-page p:nth-of-type(n+2) {
+  clear: both;
+}
+
+/* Push first paragraph down a bit when image is first */
+.page-content .rolunk-corner-img + p { margin-top: 1rem; }
+
+/* Justify general page text */
+.page-content p { text-align: justify; text-justify: inter-word; }
+
+/* Phone: slightly smaller corner image */
+body.phone .page-content.rolunk-page { padding-right: 0; }
+body.phone .page-content .rolunk-corner-img { width: 50%; float: right; }
+body.phone .page-content.rolunk-page p:nth-of-type(n+2) { clear: both; }
+
+/* Responsive text sizing inside pages */
+.page-content {
+  font-size: clamp(0.9rem, 0.95vw + 0.15rem, 1.1rem);
+  line-height: 1.5;
+  /* Reserve extra space at the bottom so content isn't obscured
+     by page numbers or controls */
+  padding-bottom: 2.75rem;
+}
+
+/* Allow pages with embeds (e.g., Jelentkezés) to fill available height */
+.page .page-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.page .page-content > [data-customgform] {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Provide bottom scroll padding for comfortable end-of-form spacing */
+  scroll-padding-bottom: 2.75rem;
+}
+
+/* Ensure the injected iframe fills the container */
+.page .page-content [data-customgform] iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+
+/* Phone: responsive text sizing to match page size */
+body.phone .page-content {
+  font-size: clamp(0.95rem, 2.5vw + 0.2rem, 1.15rem);
+  line-height: 1.6;
+}
+
+body.phone .page-content p {
+  margin-bottom: 0.8rem;
+}
+
+body.phone .page-content h2,
+body.phone .page-content h3 {
+  font-size: clamp(1.1rem, 3vw + 0.3rem, 1.4rem);
+  margin-bottom: 0.6rem;
+}
+
+/* Información page layout */
+.info-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+  align-items: start;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.info-left {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  grid-row: 1 / 3;
+}
+
+.info-image {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.info-map {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.info-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 350px;
+  font-size: clamp(0.85rem, 0.9vw + 0.1rem, 1rem);
+}
+
+.info-table th {
+  background-color: #B37235;
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 700;
+}
+
+.info-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #DDD;
+}
+
+.info-table tr:last-child td {
+  border-bottom: none;
+}
+
+.info-table td:first-child {
+  font-weight: 600;
+  width: 45%;
+}
+
+.info-table a {
+  color: #B37235;
+  text-decoration: none;
+  border-bottom: 1px solid #B37235;
+}
+
+.info-table a:hover {
+  color: #8B5A2B;
+  border-color: #8B5A2B;
+}
+
+.info-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-image img {
+  max-width: 100%;
+  height: auto;
+  width: 200px;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.info-map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-map iframe {
+  width: 200px;
+  height: 200px;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Phone: Información page layout */
+body.phone .info-layout {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+}
+
+body.phone .info-left {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+body.phone .info-image {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+body.phone .info-map {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+body.phone .info-table {
+  max-width: 100%;
+  font-size: 0.9rem;
+}
+
+body.phone .info-image img {
+  width: 150px;
+}
+
+body.phone .info-map iframe {
+  width: 150px;
+  height: 150px;
+}
+/* People grid (pages 8-9) */
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.8rem;
+  align-items: stretch;
+  height: 100%;
+}
+
+.people-grid.two-cols {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto; /* rows size to content so they fit */
+  gap: 0.45rem;
+  height: auto;                 /* avoid forcing full-page height */
+}
+
+.person-card {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.person-figure {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.person-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+.person-figure .hover-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background: rgba(156, 107, 63, 0.6); /* brownish tint */
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  border-radius: 8px;
+}
+
+.person-card:hover .hover-info,
+.person-card:focus .hover-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.person-name {
+  margin-top: 0.45rem;
+  text-align: center;
+  font-weight: 600;
+  color: #5C3D2E;
+  font-size: clamp(0.9rem, 0.9vw + 0.2rem, 1.05rem);
+}
+
+/* On phones, show a subtle label always (no hover) */
+@media (max-width: 768px) {
+  /* Phone: keep overlay hidden by default; show on hover/focus only */
+  .person-figure .hover-info {
+    font-size: 0.95rem;
+  }
+}
+
+/* Fit page height for 2x2 grid (Page 9) */
+.people-grid.two-cols .person-card { min-height: 0; }
+.people-grid.two-cols .person-name {
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  height: 2.2rem; /* tighter name block to save space */
+  line-height: 1.1rem;
+}
+.people-grid.two-cols .person-figure {
+  height: auto;                  /* let aspect ratio drive height */
+  aspect-ratio: 16 / 9;          /* even shorter on desktop */
+}
+
+@media (max-width: 768px) {
+  .people-grid.two-cols {
+    height: 100%;
+  }
+  .people-grid.two-cols .person-figure {
+    height: auto;
+    aspect-ratio: 3 / 2;         /* even shorter on phones */
+  }
+}
+
+/* Modal overlay for person details */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000003;
+}
+
+.modal.open { display: flex; }
+
+.modal-content {
+  background: #fffdfa;
+  color: var(--ink);
+  width: min(90vw, 720px);
+  max-height: 86vh;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  overflow: auto;
+  padding: 1rem;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.modal-title { font-family: "Libre Baskerville", Georgia, serif; font-size: 1.3rem; margin: 0; }
+
+.modal-close {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+}
+
+.modal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.modal-text { font-size: 1rem; line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .modal-body { grid-template-columns: 1fr; }
+  /* Phone: reduce modal image to 50% width and center */
+  .modal-image {
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+}
+/* Contact/Elérhetőség page styling */
+.contact-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 1rem;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+  width: 100%;
+}
+
+.contact-table {
+  width: 100%;
+  height: 60%;
+  max-width: 400px;
+  border-collapse: collapse;
+  background: linear-gradient(135deg, #F6E1CC 0%, #FFF5E6 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contact-table a {
+  color: #B37235;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #B37235;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-table a:hover {
+  color: #8B5A2B;
+  border-color: #8B5A2B;
+}
+
+.contact-table tr {
+  border-bottom: 1px solid #E8D4C0;
+  transition: background-color 0.2s ease;
+}
+
+.contact-table tr:hover {
+  background-color: rgba(179, 114, 53, 0.05);
+}
+
+.contact-table tr:last-child {
+  border-bottom: none;
+}
+
+.contact-table td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  width: 40px;
+  text-align: center;
+  color: #B37235;
+}
+
+.contact-table td:nth-child(2) {
+  font-weight: 600;
+  color: #5C3D2E;
+  width: 140px;
+}
+
+.contact-table td:nth-child(3) {
+  color: #6B4423;
+  font-weight: 500;
+}
+
+
+body.phone .contact-table td {
+  padding: 0.85rem 1rem;
+}
+
+body.phone .contact-icon {
+  font-size: 1.3rem;
+}
+
+/* Contact page image sizing */
+.page-image {
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+
+.page-image img {
+  max-width: 100%;
+  max-height: 190px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.phone .page-image img {
+  max-height: 160px;
+}
+
+body.phone .contact-wrapper {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+body.phone .contact-container {
+  order: 1;
+  width: 100%;
+}
+
+body.phone .page-image {
+  order: 2;
+  width: 100%;
+}
+
+/* Stamped gallery (pages 6-7) — full-page, borderless, large images */
+.gallery-stamped {
+  flex: 1 1 auto;              /* fill remaining space below intro */
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;          /* rows evenly share available height */
+  gap: 0;                       /* edge-to-edge tiles */
+  align-content: stretch;
+  height: 100%;
+}
+
+.gallery-item {
+  position: relative;
+  background: transparent;
+  border: none;                 /* remove photo frame */
+  box-shadow: none;             /* remove polaroid shadow */
+  border-radius: 12px;          /* rounded edges */
+  transform-origin: center center;
+  transition: transform 120ms ease;
+  overflow: hidden;             /* crop rotated edges within cell */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;            /* fill tile */
+  border-radius: inherit;       /* follow parent rounding */
+  filter: saturate(0.98) contrast(1.0);
+  transform: scale(1.2);        /* enlarge image by ~20% */
+  transform-origin: center;     /* keep position fixed while scaling */
+}
+
+.lead-gallery-intro {
+  font-weight: 600;
+  color: #5C3D2E;
+  margin-bottom: 0.8rem;
+}
+
+/* Phone: denser grid for small screens */
+@media (max-width: 768px) {
+  .gallery-stamped {
+    grid-template-columns: repeat(2, 1fr); /* match desktop layout */
+    grid-auto-rows: 1fr;
+    gap: 0;
+  }
+}
