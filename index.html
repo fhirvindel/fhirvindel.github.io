@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Flipbook Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Redirect to phone version if screen is too small
+    if (window.innerWidth <= 768) {
+      window.location.href = 'indexphone.html';
+    }
+    // Also listen for window resize to catch when user shrinks browser
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 768) {
+        window.location.href = 'indexphone.html';
+      }
+    });
+  </script>
+</head>
+<body>
+  <!-- header removed per request -->
+
+  <main class="flipbook-wrapper">
+    <aside class="sidebar-bookmarks-left" aria-label="Bookmarks Left">
+      <nav class="side-bookmarks-left"></nav>
+    </aside>
+    <div class="responsive-nav" aria-label="Bookmarks">
+      <nav class="top-bookmarks"></nav>
+    </div>
+    <div class="controls" aria-label="Page Controls">
+      <button class="prev" aria-label="Previous page">◀</button>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Bookmarks">Bookmarks</button>
+      <button class="next" aria-label="Next page">▶</button>
+    </div>
+
+    <!-- Mobile overlay menu lives outside the hidden responsive-nav so it can display on tablets -->
+    <div id="mobileMenu" class="mobile-menu" hidden>
+      <nav class="mobile-bookmarks" aria-label="Mobile Bookmarks"></nav>
+    </div>
+
+    <div id="flipbook" class="flipbook" aria-live="polite"></div>
+    <aside class="sidebar-bookmarks-right" aria-label="Bookmarks Right">
+      <nav class="side-bookmarks-right"></nav>
+    </aside>
+  </main>
+
+  <!-- footer tip removed per request -->
+
+  <script src="script.js"></script>
+  <script async src="https://cdn.customgform.com/cgf.js"></script>
+</body>
+</html>
