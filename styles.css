@@ -1,3 +1,12 @@
+/* Intro text before 2x2 senior grid */
+.lead-seniors {
+  font-weight: 600;
+  color: #5C3D2E;
+  margin-bottom: 0.6rem;
+}
+.lead-seniors + .people-grid.two-cols {
+  height: auto; /* allow grid to size naturally when intro present */
+}
 /* Rólunk page: two-column top (text left, image right), full-width bottom */
 .page-content .rolunk-table {
   width: 100%;
@@ -29,6 +38,7 @@
   align-items: center;
   justify-content: flex-start; /* move content to the top */
   gap: 1rem;
+  justify-content: center;
 }
 
 .arched-title {
@@ -187,6 +197,56 @@ body.menu-open { overflow: hidden; }
 
 /* Back side content */
 .page.back { transform: rotateY(180deg); }
+
+/* Full-bleed back cover image and caption (desktop + phone) */
+.sheet.back-cover .page.back,
+.sheet.back-cover .page.phone-page {
+  padding: 0; /* remove default page padding for full image */
+}
+.sheet.back-cover .page .cover-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;       /* center the figure */
+  place-items: center;
+  overflow: hidden;    /* ensure children cannot exceed page bounds */
+}
+.sheet.back-cover .page .back-figure {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  border-radius: 16px;      /* rounded picture edges */
+  overflow: hidden;         /* clip image + caption to rounded shape */
+  margin: 0 auto;           /* horizontally center within page */
+}
+.sheet.back-cover .page .back-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* crop additional parts */
+  display: block;
+  border-radius: inherit;   /* follow figure rounding */
+}
+
+/* Circular black glow (radial vignette) over the image */
+.sheet.back-cover .page .back-figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.35) 75%, rgba(0,0,0,0.55) 100%);
+}
+.sheet.back-cover .page .back-caption {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;               /* bottom of the picture */
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  padding: 0.8rem 1rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0));
+}
 
 /* Outer edge subtle shadow only (no center gap) */
 .page.front::after {
@@ -548,8 +608,9 @@ body.phone .info-map iframe {
 
 .people-grid.two-cols {
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 0.5rem;
+  grid-template-rows: auto auto; /* rows size to content so they fit */
+  gap: 0.45rem;
+  height: auto;                 /* avoid forcing full-page height */
 }
 
 .person-card {
@@ -626,13 +687,14 @@ body.phone .info-map iframe {
 /* Fit page height for 2x2 grid (Page 9) */
 .people-grid.two-cols .person-card { min-height: 0; }
 .people-grid.two-cols .person-name {
-  font-size: 0.9rem;
-  margin-top: 0.25rem;
-  height: 2.8rem; /* allow up to 2 lines */
-  line-height: 1.4rem;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+  height: 2.2rem; /* tighter name block to save space */
+  line-height: 1.1rem;
 }
 .people-grid.two-cols .person-figure {
-  height: calc(100% - 3rem); /* account for taller name block */
+  height: auto;                  /* let aspect ratio drive height */
+  aspect-ratio: 16 / 9;          /* even shorter on desktop */
 }
 
 @media (max-width: 768px) {
@@ -640,7 +702,8 @@ body.phone .info-map iframe {
     height: 100%;
   }
   .people-grid.two-cols .person-figure {
-    height: calc(100% - 1.6rem);
+    height: auto;
+    aspect-ratio: 3 / 2;         /* even shorter on phones */
   }
 }
 
@@ -831,40 +894,38 @@ body.phone .page-image {
   width: 100%;
 }
 
-/* Stamped gallery (pages 6-7) — overlapping collage, rounded, hover */
+/* Stamped gallery (pages 6-7) — full-page, borderless, large images */
 .gallery-stamped {
-  position: relative;
   flex: 1 1 auto;              /* fill remaining space below intro */
   min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;          /* rows evenly share available height */
+  gap: 0;                       /* edge-to-edge tiles */
+  align-content: stretch;
   height: 100%;
-  overflow: hidden;            /* ensure all pictures fit inside the page */
 }
 
 .gallery-item {
-  position: absolute;           /* free placement for overlap */
+  position: relative;
   background: transparent;
-  border: none;
-  box-shadow: none;
+  border: none;                 /* remove photo frame */
+  box-shadow: none;             /* remove polaroid shadow */
   border-radius: 12px;          /* rounded edges */
   transform-origin: center center;
-  transition: transform 160ms ease, box-shadow 160ms ease;
-  overflow: visible;            /* allow rotated edges to show */
-  transform: var(--t, none);
-}
-
-.gallery-item:hover,
-.gallery-item:focus {
-  transform: var(--t, none) scale(1.06);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.28);
+  transition: transform 120ms ease;
+  overflow: hidden;             /* crop rotated edges within cell */
 }
 
 .gallery-item img {
   width: 100%;
-  height: auto;                 /* preserve original aspect ratio */
+  height: 100%;
   display: block;
-  object-fit: contain;          /* no cropping; keep ratios */
+  object-fit: cover;            /* fill tile */
   border-radius: inherit;       /* follow parent rounding */
   filter: saturate(0.98) contrast(1.0);
+  transform: scale(1.2);        /* enlarge image by ~20% */
+  transform-origin: center;     /* keep position fixed while scaling */
 }
 
 .lead-gallery-intro {
@@ -876,7 +937,8 @@ body.phone .page-image {
 /* Phone: denser grid for small screens */
 @media (max-width: 768px) {
   .gallery-stamped {
-    position: relative;
-    height: 100%;
+    grid-template-columns: repeat(2, 1fr); /* match desktop layout */
+    grid-auto-rows: 1fr;
+    gap: 0;
   }
 }

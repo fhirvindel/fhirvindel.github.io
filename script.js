@@ -32,6 +32,15 @@
       { type: 'html', html: '<div id="gallery-p7" class="gallery-stamped" aria-label="Galéria (7)"></div>' }
     ] },
     { title: 'Chapter 3', content: [
+      { type: 'html', html: '<p class="lead-seniors">Mi, a táborszervezők, a „szeniorok” gyerekként magunk is hasonló táborokba jártunk, és most fő célunk, hogy olyan mesés és maradandó élményeket ajándékozzunk a gyerekeknek, mint amilyet mi magunk is kaptunk.</p>' },
+      { type: 'html', html: '<div class="people-grid two-cols" role="grid" aria-label="Tábor vezetők">'
+        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde <wbr>(Székely Márton)</div></button>'
+        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde (Székely Márton)</div></button>'
+        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde (Székely Márton)</div></button>'
+        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde (Székely Márton)</div></button>'
+        + '</div>' }
+    ] },
+    { title: 'Chapter 3.2', content: [
       { type: 'html', html: '<div class="people-grid" role="grid" aria-label="Tábor vezetők">'
         + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde <br>(Székely Márton)</div></button>'
         + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde <br>(Székely Márton)</div></button>'
@@ -39,14 +48,6 @@
         + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde <br>(Székely Márton)</div></button>'
         + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde <br>(Székely Márton)</div></button>'
         + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde <br>(Székely Márton)</div></button>'
-        + '</div>' }
-    ] },
-    { title: 'Chapter 3.2', content: [
-      { type: 'html', html: '<div class="people-grid two-cols" role="grid" aria-label="Tábor vezetők">'
-        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde <wbr>(Székely Márton)</div></button>'
-        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde (Székely Márton)</div></button>'
-        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde (Székely Márton)</div></button>'
-        + '<button class="person-card" type="button" data-name="Mevde (Székely Márton)" data-info="További információ hamarosan." data-img="képek/using/people/Medve.jpg"><div class="person-figure"><img src="képek/using/people/Medve.jpg" alt="Mevde (Székely Márton)"><span class="hover-info">Több</span></div><div class="person-name">Mevde (Székely Márton)</div></button>'
         + '</div>' }
     ] },
     { title: 'Elérhetőség', content: [
@@ -106,6 +107,7 @@
     'IMG_0023.JPG',
     'IMG_0032.JPG',
     'IMG_20240803_220653598_HDR.jpg',
+    'IMG_4595.JPG',
     'IMG_5222.JPG',
     'IMG_6762.JPG',
     'IMG_7002.JPG',
@@ -120,26 +122,14 @@
   function buildStampedGallery(targetId, files){
     const el = document.getElementById(targetId);
     if (!el || !Array.isArray(files)) return;
-    files.forEach((name, idx) => {
+    files.forEach((name) => {
       const fig = document.createElement('figure');
       fig.className = 'gallery-item';
-      // Base transform stored in CSS var for hover scaling
-      const rot = rand(-8, 8);
+      const rot = rand(-6.5, 6.5);
       const tx = rand(-10, 10);
       const ty = rand(-10, 10);
-      fig.style.setProperty('--t', `rotate(${rot.toFixed(1)}deg) translate(${tx.toFixed(0)}px, ${ty.toFixed(0)}px)`);
-      // Random size and placement for overlapping collage
-      const wPct = rand(42, 58);              // large but bounded
-      const baseLeft = 50 - (wPct / 2);       // center horizontally
-      let leftPct = baseLeft + rand(-6, 6);   // small horizontal offset
-      leftPct += 2;                           // bias slightly to the right
-      leftPct = Math.max(0, Math.min(100 - wPct, leftPct));
-      let topPct = 40 + rand(-8, 8) - 4;      // cluster near middle, biased up a bit
-      topPct = Math.max(4, Math.min(68, topPct));
-      fig.style.width = wPct.toFixed(0) + '%';
-      fig.style.left = leftPct.toFixed(0) + '%';
-      fig.style.top = topPct.toFixed(0) + '%';
-      fig.style.zIndex = String(100 - idx);   // sequential stacking
+      fig.style.transform = `rotate(${rot.toFixed(1)}deg) translate(${tx.toFixed(0)}px, ${ty.toFixed(0)}px)`;
+      fig.style.zIndex = String(10 + Math.floor(rand(0, 10)));
       const img = document.createElement('img');
       img.src = `képek/using/galery/${name}`;
       img.alt = 'Tábor kép';
@@ -148,50 +138,18 @@
     });
   }
 
-  // Split images: page 7 gets 7, page 6 gets 6
+  // Split images across pages 6 and 7
   (function(){
-    const p7 = GALLERY_IMAGES.slice(0, 7);
-    const p6 = GALLERY_IMAGES.slice(7);
+    const total = GALLERY_IMAGES.length;
+    const desiredP7 = 8;
+    const desiredP6 = 6;
+    const p7Count = Math.min(desiredP7, total);
+    const remaining = Math.max(0, total - p7Count);
+    const p6Count = Math.min(desiredP6, remaining);
+    const p6 = GALLERY_IMAGES.slice(0, p6Count);
+    const p7 = GALLERY_IMAGES.slice(total - p7Count);
     buildStampedGallery('gallery-p6', p6);
     buildStampedGallery('gallery-p7', p7);
-    // Desktop: slow cycle effect to move front item back
-    function startGalleryCycle(containerId){
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      setInterval(() => {
-        const items = Array.from(container.querySelectorAll('.gallery-item'));
-        if (!items.length) return;
-        // find highest z-index item
-        let frontItem = items[0];
-        let maxZ = -Infinity;
-        items.forEach(it => {
-          const z = parseInt(getComputedStyle(it).zIndex || '0', 10);
-          if (z > maxZ) { maxZ = z; frontItem = it; }
-        });
-        // phase 1: move up slightly while on top
-        frontItem.style.transition = 'transform 1200ms ease';
-        frontItem.style.transform = 'var(--t) translateY(-16px) scale(0.98)';
-        // phase 2: send behind and move down a bit
-        setTimeout(() => {
-          frontItem.style.zIndex = '0';
-          frontItem.style.transition = 'transform 900ms ease';
-          frontItem.style.transform = 'var(--t) translateY(12px) scale(0.96)';
-        }, 900);
-        // phase 3: bump others forward and restore base transform
-        setTimeout(() => {
-          items.forEach(it => {
-            if (it !== frontItem) {
-              const z = parseInt(getComputedStyle(it).zIndex || '0', 10);
-              it.style.zIndex = String(z + 1);
-            }
-          });
-          frontItem.style.transition = 'transform 600ms ease';
-          frontItem.style.transform = 'var(--t)';
-        }, 1800);
-      }, 4600);
-    }
-    startGalleryCycle('gallery-p6');
-    startGalleryCycle('gallery-p7');
   })();
 
   // Render helper for rich content blocks
@@ -264,9 +222,11 @@
     }
     if (page && page.backCover) {
       return `
-        <div class="cover-content">
-          <h2>${page.title || 'Back Cover'}</h2>
-          <div class="byline">${page.content || ''}</div>
+        <div class="cover-content" aria-label="Back Cover">
+          <figure class="back-figure">
+            <img class="back-photo" src="képek/using/back.jpg" alt="Back cover image">
+            <figcaption class="back-caption">Tartsatok velünk, és kezdjük együtt az első Birodalmi Évünket!</figcaption>
+          </figure>
         </div>
         <span class="page-number">${pageNumber}</span>
       `;
