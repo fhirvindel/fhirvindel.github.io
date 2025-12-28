@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" width="64" height="80">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5a2d0c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Shield outline -->
+  <path d="M 50 10 L 85 30 L 85 60 Q 85 95 50 110 Q 15 95 15 60 L 15 30 Z" 
+        fill="url(#shieldGradient)" 
+        stroke="#3a1f08" 
+        stroke-width="2"/>
+  <!-- Green leaf in the middle -->
+  <g transform="translate(50, 55)">
+    <!-- Leaf shape -->
+    <ellipse cx="0" cy="0" rx="12" ry="20" fill="#2d7a3e" stroke="#1a4d24" stroke-width="1" transform="rotate(0)"/>
+    <!-- Leaf vein -->
+    <path d="M 0 -18 Q 2 0 0 18" stroke="#1a4d24" stroke-width="1.5" fill="none"/>
+  </g>
+</svg>
