@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fhír'vindel – Elérhetőségek</title>
+  <link rel="icon" type="image/png" href="képek/using/cimer.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Ugrás a tartalomra</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <img src="képek/using/cimer.png" alt="Fhír'vindel címer" />
+        <span>Fhír'vindel</span>
+      </a>
+      <div class="nav" aria-label="Fő menü">
+        <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" type="button">☰</button>
+        <ul id="site-nav" class="nav-list" data-open="false">
+          <li><a href="index.html">Kezdőlap</a></li>
+          <li><a href="about.html">A Táborról</a></li>
+          <li><a href="info.html">Információ</a></li>
+          <li><a href="gallery.html">Galéria</a></li>
+          <li><a href="seniors.html">Szeniorok</a></li>
+          <li><a href="contact.html" aria-current="page">Elérhetőségek</a></li>
+          <li><a class="cta" href="apply.html">Jelentkezés</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="main-shell" aria-labelledby="page-title">
+    <section class="hero" aria-label="Elérhetőségek">
+      <div>
+        <h1 id="page-title">Elérhetőségek</h1>
+        <p>Keress minket bátran telefonon vagy e-mailben. Szívesen válaszolunk minden kérdésre a táborral kapcsolatban.</p>
+      </div>
+      <figure>
+        <img src="képek/using/contacts.jpg" alt="Táborozók a mezőn" />
+      </figure>
+    </section>
+
+    <section class="section card" aria-label="Kapcsolati adatok">
+      <table class="info-table">
+        <tr data-row-link="tel:+36209117382" role="link" tabindex="0"><th scope="row">Telefonszám</th><td><a href="tel:+36209117382">+36 20 9117 382</a></td></tr>
+        <tr data-row-link="mailto:fhirvindel@gmail.com" role="link" tabindex="0"><th scope="row">E-mail</th><td><a href="mailto:fhirvindel@gmail.com">fhirvindel@gmail.com</a></td></tr>
+        <tr data-row-link="https://www.facebook.com/share/17NQLCk92A/" data-row-link-target="_blank" role="link" tabindex="0"><th scope="row">Facebook</th><td><a href="https://www.facebook.com/share/17NQLCk92A/" target="_blank" rel="noopener">@fhír'vindel</a></td></tr>
+        <tr><th scope="row">Instagram</th><td>Hamarosan</td></tr>
+      </table>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Fhír'vindel tábor • Facebook: <a href="https://www.facebook.com/share/17NQLCk92A/" target="_blank" rel="noopener">@fhirvindel</a> •
+    Email: <a href="mailto:fhirvindel@gmail.com">fhirvindel@gmail.com</a> •
+    Telefon: <a href="tel:+36209117382">+36 20 9117 382</a>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

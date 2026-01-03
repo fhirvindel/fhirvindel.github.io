@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fhír'vindel – Galéria</title>
+  <link rel="icon" type="image/png" href="képek/using/cimer.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Ugrás a tartalomra</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <img src="képek/using/cimer.png" alt="Fhír'vindel címer" />
+        <span>Fhír'vindel</span>
+      </a>
+      <div class="nav" aria-label="Fő menü">
+        <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" type="button">☰</button>
+        <ul id="site-nav" class="nav-list" data-open="false">
+          <li><a href="index.html">Kezdőlap</a></li>
+          <li><a href="about.html">A Táborról</a></li>
+          <li><a href="info.html">Információ</a></li>
+          <li><a href="gallery.html" aria-current="page">Galéria</a></li>
+          <li><a href="seniors.html">Szeniorok</a></li>
+          <li><a href="contact.html">Elérhetőségek</a></li>
+          <li><a class="cta" href="apply.html">Jelentkezés</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="main-shell" aria-labelledby="page-title">
+    <section class="hero" aria-label="Galéria bevezető">
+      <div>
+        <h1 id="page-title">Galéria</h1>
+        <p>Ezek a képek Aquilonból, a szülőtáborunkból vannak – így láthatod, milyen élményekre számíthatsz, amikor elindul a Fhír'vindel tábor.</p>
+      </div>
+      <figure>
+        <img src="képek/using/optional.JPG" alt="Tábori pillanat" />
+      </figure>
+    </section>
+
+    <section class="section" aria-label="Képek listája">
+      <h2>Képek</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/000019320004.jpg" data-lightbox-alt="Tábor pillanat 1"><img src="képek/using/galery/000019320004.jpg" alt="Tábor pillanat 1"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/000019320010.jpg" data-lightbox-alt="Tábor pillanat 2"><img src="képek/using/galery/000019320010.jpg" alt="Tábor pillanat 2"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_0023.JPG" data-lightbox-alt="Tábor pillanat 3"><img src="képek/using/galery/IMG_0023.JPG" alt="Tábor pillanat 3"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_0032.JPG" data-lightbox-alt="Tábor pillanat 4"><img src="képek/using/galery/IMG_0032.JPG" alt="Tábor pillanat 4"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_20240803_220653598_HDR.jpg" data-lightbox-alt="Tábor pillanat 5"><img src="képek/using/galery/IMG_20240803_220653598_HDR.jpg" alt="Tábor pillanat 5"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_6762.JPG" data-lightbox-alt="Tábor pillanat 6"><img src="képek/using/galery/IMG_6762.JPG" alt="Tábor pillanat 6"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7002.JPG" data-lightbox-alt="Tábor pillanat 7"><img src="képek/using/galery/IMG_7002.JPG" alt="Tábor pillanat 7"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7160.JPG" data-lightbox-alt="Tábor pillanat 8"><img src="képek/using/galery/IMG_7160.JPG" alt="Tábor pillanat 8"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7184.JPG" data-lightbox-alt="Tábor pillanat 9"><img src="képek/using/galery/IMG_7184.JPG" alt="Tábor pillanat 9"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7444.JPG" data-lightbox-alt="Tábor pillanat 10"><img src="képek/using/galery/IMG_7444.JPG" alt="Tábor pillanat 10"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_9222.JPG" data-lightbox-alt="Tábor pillanat 11"><img src="képek/using/galery/IMG_9222.JPG" alt="Tábor pillanat 11"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_9390.JPG" data-lightbox-alt="Tábor pillanat 12"><img src="képek/using/galery/IMG_9390.JPG" alt="Tábor pillanat 12"></button></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="Nagyított kép">
+      <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Bezárás">×</button>
+      <button id="lightbox-prev" class="lightbox-nav lightbox-prev" type="button" aria-label="Előző kép">‹</button>
+      <button id="lightbox-next" class="lightbox-nav lightbox-next" type="button" aria-label="Következő kép">›</button>
+      <img id="lightbox-image" src="" alt="" />
+    </div>
+  </div>
+
+  <footer class="footer">
+    Fhír'vindel tábor • Facebook: <a href="https://www.facebook.com/share/17NQLCk92A/" target="_blank" rel="noopener">@fhirvindel</a> •
+    Email: <a href="mailto:fhirvindel@gmail.com">fhirvindel@gmail.com</a> •
+    Telefon: <a href="tel:+36209117382">+36 20 9117 382</a>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

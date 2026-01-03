@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fhír'vindel – Kezdőlap</title>
+  <link rel="icon" type="image/png" href="képek/using/cimer.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Ugrás a tartalomra</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <img src="képek/using/cimer.png" alt="Fhír'vindel címer" />
+        <span>Fhír'vindel</span>
+      </a>
+      <div class="nav" aria-label="Fő menü">
+        <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" type="button">☰</button>
+        <ul id="site-nav" class="nav-list" data-open="false">
+          <li><a href="index.html" aria-current="page">Kezdőlap</a></li>
+          <li><a href="about.html">A Táborról</a></li>
+          <li><a href="info.html">Információ</a></li>
+          <li><a href="gallery.html">Galéria</a></li>
+          <li><a href="seniors.html">Szeniorok</a></li>
+          <li><a href="contact.html">Elérhetőségek</a></li>
+          <li><a class="cta" href="apply.html">Jelentkezés</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" aria-labelledby="page-title">
+    <section class="hero-landing full-bleed" aria-label="Fhír'vindel tábor">
+      <div class="hero-landing__content">
+        <svg class="hero-arc" viewBox="0 0 600 240" aria-hidden="true" focusable="false">
+          <defs>
+            <path id="arcPath" d="M60,190 C200,40 400,40 540,190" />
+          </defs>
+          <text>
+            <textPath startOffset="50%" text-anchor="middle" href="#arcPath">Fhír'vindel</textPath>
+          </text>
+        </svg>
+      </div>
+    </section>
+
+    <div class="main-shell">
+    <section class="section" aria-label="Gyors adatok">
+      <h2>Fontos tudnivalók</h2>
+      <div class="card-grid">
+        <div class="card"><strong>Időpont:</strong><br>2026. július 11–25.</div>
+        <div class="card"><strong>Helyszín:</strong><br><a class="no-underline" href="https://maps.app.goo.gl/si6AGMsJ5qBTAFEH9" target="_blank" rel="noopener">Kövér Egér Tanya Kulcsosház, Szőc</a></div>
+        <div class="card"><strong>Kiknek?</strong><br>9–14 éves gyerekeknek</div>
+        <div class="card"><strong>Ár:</strong><br>150 000 Ft</div>
+      </div>
+    </section>
+
+      <section class="section" aria-label="Mi történik a táborban">
+        <h2>A Táborról röviden</h2>
+        <div class="about-block layout-two card">
+          <figure>
+            <img src="képek/using/goingsomewhere.jpg" alt="Gyerekek jelmezben gyakorlatoznak" />
+          </figure>
+          <div class="rich-text">
+            <p>Napjaink közös játékkal, sporttal, zenéléssel és kézműveskedéssel telnek, nagyrészt a természetben. Minden táborozó részese a királysági életnek: saját karakterrel vehet részt a királyválasztásban, csatározásban vagy varázslásban.</p>
+            <p>Esténként együtt ülünk tábortűzet, énekelünk, néha éjjeli küldetésekre indulunk. Bárki lehet lovag, mágus, gyógyító vagy kereskedő – csak a képzelet szab határt.</p>
+            <a class="cta secondary" href="about.html">Teljes bemutató</a>
+          </div>
+        </div>
+      </section>
+
+    <section class="section" aria-label="Fő részek">
+      <h2>Fedezd fel</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3 style="margin-top:0;">Galéria</h3>
+          <p>Aquilon képeiből álló válogatás, hogy lásd, milyen élmények várnak.</p>
+          <a class="cta secondary" href="gallery.html">Képek megnyitása</a>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">Szeniorok</h3>
+          <p>Ismerd meg a tábor szervezőit és történeteiket.</p>
+          <a class="cta secondary" href="seniors.html">Csapat megismerése</a>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;">Elérhetőségek</h3>
+          <p>Kérdésed van? Telefonon vagy e-mailben is segítünk.</p>
+          <a class="cta secondary" href="contact.html">Kapcsolat</a>
+        </div>
+      </div>
+    </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Fhír'vindel tábor • Facebook: <a href="https://www.facebook.com/share/17NQLCk92A/" target="_blank" rel="noopener">@fhirvindel</a> •
+    Email: <a href="mailto:fhirvindel@gmail.com">fhirvindel@gmail.com</a> •
+    Telefon: <a href="tel:+36209117382">+36 20 9117 382</a>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

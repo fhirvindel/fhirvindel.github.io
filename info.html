@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fhír'vindel – Információ</title>
+  <link rel="icon" type="image/png" href="képek/using/cimer.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Ugrás a tartalomra</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <img src="képek/using/cimer.png" alt="Fhír'vindel címer" />
+        <span>Fhír'vindel</span>
+      </a>
+      <div class="nav" aria-label="Fő menü">
+        <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" type="button">☰</button>
+        <ul id="site-nav" class="nav-list" data-open="false">
+          <li><a href="index.html">Kezdőlap</a></li>
+          <li><a href="about.html">A Táborról</a></li>
+          <li><a href="info.html" aria-current="page">Információ</a></li>
+          <li><a href="gallery.html">Galéria</a></li>
+          <li><a href="seniors.html">Szeniorok</a></li>
+          <li><a href="contact.html">Elérhetőségek</a></li>
+          <li><a class="cta" href="apply.html">Jelentkezés</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="main-shell" aria-labelledby="page-title">
+    <section class="section" aria-label="Adatok">
+      <h2>Információk</h2>
+      <table class="info-table">
+        <tr><th scope="row">Időpont</th><td>2026. július 11–25.</td></tr>
+        <tr><th scope="row">Helyszín</th><td><a href="https://kulcsoshaz.com/index.html" target="_blank" rel="noopener">Kövér Egér Tanya Kulcsosház – Szőc</a></td></tr>
+        <tr><th scope="row">Kiknek?</th><td>9–14 éves gyerekeknek</td></tr>
+        <tr><th scope="row">Ár</th><td>150 000 Ft</td></tr>
+      </table>
+    </section>
+
+    <section class="section layout-two" aria-label="Megközelítés">
+      <div class="card">
+        <h2>Helyszín a térképen</h2>
+        <div class="map-embed">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2721.0335002951624!2d17.522612776194396!3d47.000315171140485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47690c7efa2928ad%3A0xbac99b398dee5a9e!2zS8O2dsOpciBFZ8OpciBUYW55YSBLdWxjc29zaMOheg!5e0!3m2!1shu!2shu!4v1766850594207!5m2!1shu!2hu" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Kövér Egér Tanya térkép"></iframe>
+        </div>
+      </div>
+      <div class="card">
+        <h2>A ház</h2>
+        <p>A Kövér Egér Tanya egy kis kulcsosház Szőc közelében, az erdőben, körülbelül tíz perc autóútra a falutól. A ház elvarázsolt hangulata tökéletes helyszínt nyújt egy kalandtábor számára.</p>
+        <img src="képek/using/haz.jpg" alt="A tábor háza" />
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Fhír'vindel tábor • Facebook: <a href="https://www.facebook.com/share/17NQLCk92A/" target="_blank" rel="noopener">@fhirvindel</a> •
+    Email: <a href="mailto:fhirvindel@gmail.com">fhirvindel@gmail.com</a> •
+    Telefon: <a href="tel:+36209117382">+36 20 9117 382</a>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
