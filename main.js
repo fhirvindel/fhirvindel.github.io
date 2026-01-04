@@ -120,8 +120,15 @@
   const personModalTitle = document.getElementById('person-modal-title');
   const personModalBio = document.getElementById('person-modal-bio');
   const personModalClose = personModal ? personModal.querySelector('.person-modal__close') : null;
+  const personPrev = document.getElementById('person-prev');
+  const personNext = document.getElementById('person-next');
   const personTriggers = Array.from(document.querySelectorAll('.person-modal-trigger'));
   let personLastFocus = null;
+  let personCurrentIndex = -1;
+
+  personTriggers.forEach((trigger, idx) => {
+    trigger.dataset.personIndex = String(idx);
+  });
 
   function closePersonModal() {
     if (!personModal) return;
@@ -138,6 +145,8 @@
     const bio = trigger.getAttribute('data-person-bio') || '';
     const image = trigger.getAttribute('data-person-image') || '';
     personLastFocus = trigger;
+    const idx = Number.parseInt(trigger.dataset.personIndex || '-1', 10);
+    personCurrentIndex = Number.isFinite(idx) ? idx : personTriggers.indexOf(trigger);
     personModalImage.src = image;
     personModalImage.alt = name;
     personModalTitle.textContent = name;
@@ -153,8 +162,32 @@
     trigger.addEventListener('click', () => openPersonModal(trigger));
   });
 
+  function openPersonByIndex(idx) {
+    if (!personTriggers.length) return;
+    const len = personTriggers.length;
+    personCurrentIndex = ((idx % len) + len) % len;
+    const nextTrigger = personTriggers[personCurrentIndex];
+    if (nextTrigger) {
+      openPersonModal(nextTrigger);
+    }
+  }
+
   if (personModalClose) {
     personModalClose.addEventListener('click', closePersonModal);
+  }
+
+  if (personPrev) {
+    personPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openPersonByIndex(personCurrentIndex - 1);
+    });
+  }
+
+  if (personNext) {
+    personNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openPersonByIndex(personCurrentIndex + 1);
+    });
   }
 
   if (personModal) {
@@ -170,9 +203,17 @@
       closeLightbox();
       closePersonModal();
     } else if (e.key === 'ArrowLeft') {
-      showRelative(-1);
+      if (personModal && personModal.getAttribute('aria-hidden') === 'false') {
+        openPersonByIndex(personCurrentIndex - 1);
+      } else {
+        showRelative(-1);
+      }
     } else if (e.key === 'ArrowRight') {
-      showRelative(1);
+      if (personModal && personModal.getAttribute('aria-hidden') === 'false') {
+        openPersonByIndex(personCurrentIndex + 1);
+      } else {
+        showRelative(1);
+      }
     }
   });
 
