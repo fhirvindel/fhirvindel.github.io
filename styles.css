@@ -3,7 +3,7 @@
   --bg: #a2b5a7;
   --ink: #1f3224;
   --muted: #29402d;
-  --accent: #8c6239;
+  --accent: #b58350;
   --surface: #fffaf6;
   --border: #d7e9dc;
   --shadow: 0 4px 12px rgba(31, 72, 45, 0.08);
@@ -159,8 +159,7 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   color: #fff;
   padding: 3.5rem 1.25rem;
   overflow: clip;
-  background: linear-gradient(180deg, rgba(22, 32, 52, 0.62) 0%, rgba(22, 32, 52, 0.2) 60%, rgba(22, 32, 52, 0.72) 100%),
-              url("képek/using/kezdolap.jpg") center center / cover no-repeat;
+  background: #162034;
 }
 
 .hero-landing::before {
@@ -169,6 +168,16 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   inset: 0;
   background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.2), transparent 45%);
   pointer-events: none;
+  z-index: 1;
+}
+
+.hero-landing::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(22, 32, 52, 0.62) 0%, rgba(22, 32, 52, 0.2) 60%, rgba(22, 32, 52, 0.72) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .hero-landing__content {
@@ -178,8 +187,23 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   gap: 0.75rem;
   align-items: center;
   justify-items: center;
-  z-index: 1;
+  z-index: 2;
   transform: translateY(-20vh);
+}
+
+.hero-landing__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-landing__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .hero-arc {

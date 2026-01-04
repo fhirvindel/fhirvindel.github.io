@@ -7,8 +7,12 @@
   <link rel="icon" type="image/png" href="képek/using/cimer.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap"></noscript>
+  <link rel="preload" as="style" href="styles.css">
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
   <meta name="description" content="Ismerd meg a Fhír'vindel fantáziatábor szervező csapatát és történeteiket." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fhirvindel.hu/seniors.html" />
@@ -64,7 +68,10 @@
         <p>Mi, a táborszervezők gyerekként magunk is hasonló táborokba jártunk. Célunk, hogy olyan mesés és maradandó élményeket ajándékozzunk a gyerekeknek, mint amilyet mi is kaptunk.</p>
       </div>
       <figure>
-        <img src="képek/using/csoportkep.jpg" alt="Szeniorok" />
+        <picture>
+          <source type="image/webp" srcset="képek/using/csoportkep.webp" />
+          <img src="képek/using/csoportkep.jpg" alt="Szeniorok" />
+        </picture>
       </figure>
     </section>
 
@@ -72,52 +79,64 @@
       <h2>A csapat</h2>
       <div class="people-grid">
         <article class="person-card">
-          <img src="képek/using/people/Inderwald(Sarusi-Kis Balázs).jpg" alt="Inderwald (Sarusi-Kis Balázs)" />
+          <picture>
+            <source type="image/webp" srcset="képek/using/people/Inderwald(Sarusi-Kis Balázs).webp" />
+            <img src="képek/using/people/Inderwald(Sarusi-Kis Balázs).jpg" alt="Inderwald (Sarusi-Kis Balázs)" />
+          </picture>
           <p class="person-name">Inderwald<br>(Sarusi-Kis Balázs)</p>
           <button
             class="person-modal-trigger"
             type="button"
             data-person-name="Inderwald (Sarusi-Kis Balázs)"
-            data-person-image="képek/using/people/Inderwald(Sarusi-Kis Balázs).jpg"
+            data-person-image="képek/using/people/Inderwald(Sarusi-Kis Balázs).webp"
             data-person-bio="A hétköznapokban nincs rá lehetőségem, de a táborokban kiélhetem a kreatív énemet is. Gyerekként a barátaim ismertették meg velem a szerepjátéktábort. Már az első évben beleszerettem a birodalom misztikus levegőjébe. A játékban voltam minden: mágus, lovag, démon és álomjáró is. Most táboroztatóként remélem én is hasonlóan boldog és élményteli emlékeket fogok szerezni másoknak."
           >
             Rólam
           </button>
         </article>
         <article class="person-card">
-          <img src="képek/using/people/Medve(Székely Márton).jpg" alt="Medve (Székely Márton)" />
+          <picture>
+            <source type="image/webp" srcset="képek/using/people/Medve(Székely Márton).webp" />
+            <img src="képek/using/people/Medve(Székely Márton).jpg" alt="Medve (Székely Márton)" />
+          </picture>
           <p class="person-name">Medve<br>(Székely Márton)</p>
           <button
             class="person-modal-trigger"
             type="button"
             data-person-name="Medve (Székely Márton)"
-            data-person-image="képek/using/people/Medve(Székely Márton).jpg"
+            data-person-image="képek/using/people/Medve(Székely Márton).webp"
             data-person-bio="Gyerekként négy évet táboroztam Aquilon királyságában, és ezt a négy nyarat mondhatom gyerekkorom legszebb és legszabadabb idejének. 2025 nyarán egy másik tábor, Heledrin Királyságának szeniori gárdáját is színesíthettem. A táborozás alatt rámragadt szenvedélyeim közé tartozik a történetmesélés és a barkácsolás, amiket nagy erőkkel igyekszem Fhir'vindelben is kamatoztatni."
           >
             Rólam
           </button>
         </article>
                 <article class="person-card">
-          <img src="képek/using/people/Bendur(Ruskal Bendegúz).jpg" alt="Bendur (Ruskal Bendegúz)" />
+          <picture>
+            <source type="image/webp" srcset="képek/using/people/Bendur(Ruskal Bendegúz).webp" />
+            <img src="képek/using/people/Bendur(Ruskal Bendegúz).jpg" alt="Bendur (Ruskal Bendegúz)" />
+          </picture>
           <p class="person-name">Bendur<br>(Ruskal Bendegúz)</p>
           <button
             class="person-modal-trigger"
             type="button"
             data-person-name="Bendur (Ruskal Bendegúz)"
-            data-person-image="képek/using/people/Bendur(Ruskal Bendegúz).jpg"
+            data-person-image="képek/using/people/Bendur(Ruskal Bendegúz).webp"
             data-person-bio="Aquilonban királyságában voltam táborozó, de másik táborba is vendégeskedtem már táboroztatóként. Gyerekként nekem a tábor nem csupán menekvés volt a természetbe a szürke mindennapok elől, hanem egy olyan hely, ahol mindig biztonságban, szeretve és értékelve érezhettem magam. Mindezek mellett kipróbálhattam milyen az élet lovagként, mágusként, királyként de még manóként is. Így nem csak az erdőt, hanem önmagamat is felfedezhettem, hiszen kitapasztaltam, hogy milyen szerepekörökben vagyok komfortos. Biztosan állíthatom, hogy alapjaiban, a tábornak köszönehetem azt, aki ma vagyok. Azóta küldetésem, hogy minél több gyereknek adhassam át az élményt: a természet békéjét, a szerető és óvó közösséget, és nem utolsó sorban a kalandot."
           >
             Rólam
           </button>
         </article>
         <article class="person-card">
-          <img src="képek/using/people/Imion(Czuczor Vilmos).jpg" alt="Imion (Czuczor Vilmos)" />
+          <picture>
+            <source type="image/webp" srcset="képek/using/people/Imion(Czuczor Vilmos).webp" />
+            <img src="képek/using/people/Imion(Czuczor Vilmos).jpg" alt="Imion (Czuczor Vilmos)" />
+          </picture>
           <p class="person-name">Imion<br>(Czuczor Vilmos)</p>
           <button
             class="person-modal-trigger"
             type="button"
             data-person-name="Imion (Czuczor Vilmos)"
-            data-person-image="képek/using/people/Imion(Czuczor Vilmos).jpg"
+            data-person-image="képek/using/people/Imion(Czuczor Vilmos).webp"
             data-person-bio="Pedagógiai asszisztensnek tanulok. Aquilonban voltam táborozó, de táboroztattam egy pár másik birodalomban is. Azóta küldetésemmé vált egy élményekkel teli, telefont nem igénylő, természethez közeli tábor létrehozása. Az egyik legkedvesebb emlékem a táborozásból egy késő esti tábortűzhöz kötődik. Amikor a parázs már csak vörösen és narancssárgán lüktetett, egy vándor mesélni kezdett egy lényről, amely csak akkor mutatja meg magát, amikor az utolsó láng is végleg kihuny. Ő a Szalamandra. Ahogy a történetét hallgattam, a parázsba merülve én is megláttam őket: az izzó parázsszemeken mintha apró, elillanó lábnyomokat hagytak volna maguk után, amelyek a fény utolsó lélegzetvételeivel együtt mozdultak."
           >
             Rólam

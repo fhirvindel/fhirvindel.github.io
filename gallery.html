@@ -7,8 +7,12 @@
   <link rel="icon" type="image/png" href="képek/using/cimer.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap"></noscript>
+  <link rel="preload" as="style" href="styles.css">
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
   <meta name="description" content="Tábori hangulatképek Aquilonból, hogy lásd milyen élmények várnak a Fhír'vindel fantáziatáborban." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://fhirvindel.hu/gallery.html" />
@@ -64,25 +68,28 @@
         <p>Ezek a képek Aquilonból, a szülőtáborunkból vannak – így láthatod, milyen élményekre számíthatsz, amikor elindul a Fhír'vindel tábor.</p>
       </div>
       <figure>
-        <img src="képek/using/optional.JPG" alt="Tábori pillanat" />
+        <picture>
+          <source type="image/webp" srcset="képek/using/optional.webp" />
+          <img src="képek/using/optional.JPG" alt="Tábori pillanat" />
+        </picture>
       </figure>
     </section>
 
     <section class="section" aria-label="Képek listája">
       <h2>Képek</h2>
       <div class="gallery-grid">
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/000019320004.jpg" data-lightbox-alt="Tábor pillanat 1"><img src="képek/using/galery/000019320004.jpg" alt="Tábor pillanat 1"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/000019320010.jpg" data-lightbox-alt="Tábor pillanat 2"><img src="képek/using/galery/000019320010.jpg" alt="Tábor pillanat 2"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_0023.JPG" data-lightbox-alt="Tábor pillanat 3"><img src="képek/using/galery/IMG_0023.JPG" alt="Tábor pillanat 3"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_0032.JPG" data-lightbox-alt="Tábor pillanat 4"><img src="képek/using/galery/IMG_0032.JPG" alt="Tábor pillanat 4"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_20240803_220653598_HDR.jpg" data-lightbox-alt="Tábor pillanat 5"><img src="képek/using/galery/IMG_20240803_220653598_HDR.jpg" alt="Tábor pillanat 5"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_6762.JPG" data-lightbox-alt="Tábor pillanat 6"><img src="képek/using/galery/IMG_6762.JPG" alt="Tábor pillanat 6"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7002.JPG" data-lightbox-alt="Tábor pillanat 7"><img src="képek/using/galery/IMG_7002.JPG" alt="Tábor pillanat 7"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7160.JPG" data-lightbox-alt="Tábor pillanat 8"><img src="képek/using/galery/IMG_7160.JPG" alt="Tábor pillanat 8"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7184.JPG" data-lightbox-alt="Tábor pillanat 9"><img src="képek/using/galery/IMG_7184.JPG" alt="Tábor pillanat 9"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7444.JPG" data-lightbox-alt="Tábor pillanat 10"><img src="képek/using/galery/IMG_7444.JPG" alt="Tábor pillanat 10"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_9222.JPG" data-lightbox-alt="Tábor pillanat 11"><img src="képek/using/galery/IMG_9222.JPG" alt="Tábor pillanat 11"></button></div>
-        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_9390.JPG" data-lightbox-alt="Tábor pillanat 12"><img src="képek/using/galery/IMG_9390.JPG" alt="Tábor pillanat 12"></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/000019320004.webp" data-lightbox-alt="Tábor pillanat 1"><picture><source type="image/webp" srcset="képek/using/galery/000019320004.webp" /><img src="képek/using/galery/000019320004.jpg" alt="Tábor pillanat 1"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/000019320010.webp" data-lightbox-alt="Tábor pillanat 2"><picture><source type="image/webp" srcset="képek/using/galery/000019320010.webp" /><img src="képek/using/galery/000019320010.jpg" alt="Tábor pillanat 2"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_0023.webp" data-lightbox-alt="Tábor pillanat 3"><picture><source type="image/webp" srcset="képek/using/galery/IMG_0023.webp" /><img src="képek/using/galery/IMG_0023.JPG" alt="Tábor pillanat 3"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_0032.webp" data-lightbox-alt="Tábor pillanat 4"><picture><source type="image/webp" srcset="képek/using/galery/IMG_0032.webp" /><img src="képek/using/galery/IMG_0032.JPG" alt="Tábor pillanat 4"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_20240803_220653598_HDR.webp" data-lightbox-alt="Tábor pillanat 5"><picture><source type="image/webp" srcset="képek/using/galery/IMG_20240803_220653598_HDR.webp" /><img src="képek/using/galery/IMG_20240803_220653598_HDR.jpg" alt="Tábor pillanat 5"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_6762.webp" data-lightbox-alt="Tábor pillanat 6"><picture><source type="image/webp" srcset="képek/using/galery/IMG_6762.webp" /><img src="képek/using/galery/IMG_6762.JPG" alt="Tábor pillanat 6"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7002.webp" data-lightbox-alt="Tábor pillanat 7"><picture><source type="image/webp" srcset="képek/using/galery/IMG_7002.webp" /><img src="képek/using/galery/IMG_7002.JPG" alt="Tábor pillanat 7"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7160.webp" data-lightbox-alt="Tábor pillanat 8"><picture><source type="image/webp" srcset="képek/using/galery/IMG_7160.webp" /><img src="képek/using/galery/IMG_7160.JPG" alt="Tábor pillanat 8"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7184.webp" data-lightbox-alt="Tábor pillanat 9"><picture><source type="image/webp" srcset="képek/using/galery/IMG_7184.webp" /><img src="képek/using/galery/IMG_7184.JPG" alt="Tábor pillanat 9"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_7444.webp" data-lightbox-alt="Tábor pillanat 10"><picture><source type="image/webp" srcset="képek/using/galery/IMG_7444.webp" /><img src="képek/using/galery/IMG_7444.JPG" alt="Tábor pillanat 10"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_9222.webp" data-lightbox-alt="Tábor pillanat 11"><picture><source type="image/webp" srcset="képek/using/galery/IMG_9222.webp" /><img src="képek/using/galery/IMG_9222.JPG" alt="Tábor pillanat 11"></picture></button></div>
+        <div class="gallery-item"><button type="button" data-lightbox-src="képek/using/galery/IMG_9390.webp" data-lightbox-alt="Tábor pillanat 12"><picture><source type="image/webp" srcset="képek/using/galery/IMG_9390.webp" /><img src="képek/using/galery/IMG_9390.JPG" alt="Tábor pillanat 12"></picture></button></div>
       </div>
     </section>
   </main>

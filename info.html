@@ -7,8 +7,12 @@
   <link rel="icon" type="image/png" href="képek/using/cimer.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap"></noscript>
+  <link rel="preload" as="style" href="styles.css">
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
   <meta name="description" content="Fhír'vindel tábor alapinformációk: időpont 2026. július 11–25., gyerektábor 9–14 éveseknek, helyszín Kövér Egér Tanya, ár 150 000 Ft." />
   <meta name="keywords" content="gyerektábor információk, fantáziatábor ár, ifjúsági tábor időpont, Fhír'vindel" />
   <meta name="robots" content="index, follow" />
@@ -80,7 +84,10 @@
       <div class="card">
         <h2>A ház</h2>
         <p>A Kövér Egér Tanya egy kis kulcsosház Szőchöz közel az erdőben, körülbelül tíz perc autóútra a falutól. A ház elvarázsolt hangulata tökéletes helyszínt nyújt egy kalandtábor számára.</p>
-        <img src="képek/using/haz.jpg" alt="A tábor háza" />
+        <picture>
+          <source type="image/webp" srcset="képek/using/haz.webp" />
+          <img src="képek/using/haz.jpg" alt="A tábor háza" />
+        </picture>
       </div>
     </section>
   </main>

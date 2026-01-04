@@ -7,8 +7,13 @@
   <link rel="icon" type="image/png" href="képek/using/cimer.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;600&display=swap"></noscript>
+  <link rel="preload" as="image" href="képek/using/kezdolap.webp" />
+  <link rel="preload" as="style" href="styles.css">
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
   <meta name="description" content="Fhír'vindel fantáziatábor Szőc mellett: 2026. július 11–25., 9–14 éves gyerekeknek középkori szerepjáték, sport, zene, kézműves, tábortűz, ahol a képzelet a főszerep." />
   <meta name="keywords" content="gyerektábor, fantáziatábor, ifjúsági tábor, szerepjáték tábor, nyári tábor Veszprém megye, Fhír'vindel" />
   <meta name="robots" content="index, follow" />
@@ -147,6 +152,10 @@
 
   <main id="main" aria-labelledby="page-title">
     <section class="hero-landing full-bleed" aria-label="Fhír'vindel tábor">
+      <picture class="hero-landing__bg">
+        <source type="image/webp" srcset="képek/using/kezdolap.webp" />
+        <img src="képek/using/kezdolap.jpg" alt="" fetchpriority="high" decoding="async" />
+      </picture>
       <div class="hero-landing__content">
         <h1 id="page-title" style="display: none;">Fhír'vindel fantáziatábor</h1>
         <svg class="hero-arc" viewBox="0 0 600 240" aria-hidden="true" focusable="false">
@@ -170,7 +179,10 @@
         <h2>A Táborról röviden</h2>
         <div class="about-block layout-two card">
           <figure>
-            <img src="képek/using/goingsomewhere.jpg" alt="Gyerekek jelmezben gyakorlatoznak" />
+            <picture>
+              <source type="image/webp" srcset="képek/using/goingsomewhere.webp" />
+              <img src="képek/using/goingsomewhere.jpg" alt="Gyerekek jelmezben gyakorlatoznak" />
+            </picture>
           </figure>
           <div class="rich-text">
             <p>Napjaink közös játékkal, sporttal, zenéléssel és kézműveskedéssel telnek, nagyrészt a természetben. Minden táborozó részese a királysági életnek: saját karakterrel vehet részt a királyválasztásban, csatározásban vagy varázslásban.</p>
