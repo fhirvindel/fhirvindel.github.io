@@ -426,6 +426,8 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   object-fit: cover;
 }
 
+.person-card picture { cursor: pointer; }
+
 @media (max-width: 640px) {
   .person-card img {
     width: min(240px, 100%);

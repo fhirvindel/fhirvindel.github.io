@@ -130,6 +130,22 @@
     trigger.dataset.personIndex = String(idx);
   });
 
+  const personPictures = Array.from(document.querySelectorAll('.person-card picture'));
+  personPictures.forEach((pic) => {
+    pic.tabIndex = 0;
+    pic.addEventListener('click', () => {
+      const btn = pic.closest('.person-card')?.querySelector('.person-modal-trigger');
+      if (btn) btn.click();
+    });
+    pic.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const btn = pic.closest('.person-card')?.querySelector('.person-modal-trigger');
+        if (btn) btn.click();
+      }
+    });
+  });
+
   function closePersonModal() {
     if (!personModal) return;
     personModal.setAttribute('aria-hidden', 'true');
