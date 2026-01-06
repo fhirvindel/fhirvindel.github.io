@@ -238,6 +238,69 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   font-size: clamp(1.8rem, 2vw + 1rem, 2.6rem);
 }
 
+.error-hero {
+  position: relative;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.18), transparent 40%),
+    radial-gradient(circle at 70% 10%, rgba(255, 255, 255, 0.164), transparent 42%),
+    linear-gradient(135deg, #3e6957, #528e65);
+  color: #fff;
+  text-align: center;
+  padding: 5rem 1.5rem 4rem;
+}
+
+.error-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 820px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.error-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 28, 45, 0.6) 0%, rgba(15, 28, 45, 0.85) 100%);
+  z-index: 0;
+}
+
+.error-hero h1 {
+  margin: 0;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
+}
+
+.error-lead {
+  margin: 0;
+  color: #e9f3ec;
+  font-size: 1.05rem;
+}
+
+.error-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.error-actions .cta.secondary {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.error-note {
+  margin: 0;
+  color: #d5e5d8;
+}
+
+
+.error-hero .eyebrow {
+  color: white;
+  font-size: 2rem;
+}
 
 .hero-lead {
   margin: 0;

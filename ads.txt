@@ -1,0 +1,5 @@
+# Authorized Digital Sellers for fhirvindel.hu
+# Add one line per seller. Format: domain, publisher_id, DIRECT|RESELLER, certification_id
+# Example for Google AdSense (replace with your own ID):
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+# If you have no advertising partners yet, leave this file with only comments.
