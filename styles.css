@@ -128,7 +128,7 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   border-radius: 10px;
   border: 1px solid var(--accent);
   background: var(--accent);
-  color: #fff;
+  color: var(--ink);
   font-weight: 700;
   text-decoration: none;
 }
@@ -363,6 +363,72 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   border-radius: 12px;
   padding: 1rem;
   box-shadow: var(--shadow);
+}
+
+.card-section {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin-top: 3rem;
+}
+
+.card-section figure {
+  margin: 0;
+  order: -1;
+}
+
+.card-section figure img {
+  border-radius: 12px;
+}
+
+.card-section figcaption {
+  margin-top: 0.75rem;
+}
+
+.card-section figcaption small {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .card-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .card-section figure {
+    order: 1;
+  }
+}
+
+.card-content h2 {
+  margin: 0 0 0.5rem;
+  font-family: "Libre Baskerville", Georgia, serif;
+  color: var(--muted);
+}
+
+.card-content p {
+  margin: 0;
+}
+
+.card-content figcaption {
+  margin-top: 0.75rem;
+}
+
+.card-content figcaption small {
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .info-table {
