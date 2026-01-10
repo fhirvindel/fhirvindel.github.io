@@ -110,6 +110,7 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   border-radius: 8px;
   color: var(--ink);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav a:hover {
@@ -864,7 +865,13 @@ button, .cta { font-family: inherit; }
 button, .cta, a { outline-color: var(--muted); outline-width: 2px; }
 button:focus-visible, a:focus-visible { outline-style: solid; }
 
-@media (min-width: 860px) {
+@media (min-width: 1100px) {
+  .nav-toggle { display: none; }
+  .nav-list { display: flex; flex-direction: row; align-items: center; }
+}
+
+@media (min-width: 860px) and (max-width: 1099px) {
+  .brand span { display: none; }
   .nav-toggle { display: none; }
   .nav-list { display: flex; flex-direction: row; align-items: center; }
 }
