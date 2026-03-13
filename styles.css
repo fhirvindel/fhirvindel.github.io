@@ -1,6 +1,6 @@
 /* Core theme: accessible, no animations */
 :root {
-  --bg: #a2b5a7;
+  --bg: #86a18e;
   --ink: #1f3224;
   --muted: #29402d;
   --accent: #b58350;
@@ -605,7 +605,7 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
   width: 100%;
   text-align: center;
   border: 1px solid var(--border);
-  background: #eaf3ec;
+  background: #a8ddb4;
   color: var(--muted);
   padding: 0.55rem 0.75rem;
   border-radius: 10px;
@@ -686,7 +686,7 @@ img { max-width: 100%; height: auto; display: block; border-radius: 12px; }
 
 .person-modal__nav-btn {
   border: 1px solid var(--border);
-  background: #eaf3ec;
+  background: #86b492;
   color: var(--muted);
   width: 44px;
   height: 44px;
